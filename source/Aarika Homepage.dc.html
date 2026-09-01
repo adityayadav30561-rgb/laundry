@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&family=Nunito+Sans:opsz,wght@6..12,400;6..12,500;6..12,600;6..12,700&display=swap" rel="stylesheet" />
+<script src="./image-slot.js"></script>
+<style>
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: #FDF8F3; font-family: 'Nunito Sans', system-ui, sans-serif; color: #33566B; -webkit-font-smoothing: antialiased; }
+  a { color: #4E93AE; text-decoration: none; }
+  a:hover { color: #2E4A5C; }
+  input, select, textarea, button { font-family: inherit; }
+  @keyframes bubbleUp { 0% { transform: translateY(10px) scale(.96); opacity: .5; } 50% { transform: translateY(-14px) scale(1); opacity: .9; } 100% { transform: translateY(10px) scale(.96); opacity: .5; } }
+  @keyframes swayTag { 0%,100% { transform: rotate(-2.5deg); } 50% { transform: rotate(2deg); } }
+</style>
+</helmet>
+
+<div style="width:100%;overflow-x:hidden;background:#FDF8F3">
+
+  <sc-if value="{{ showBar }}" hint-placeholder-val="{{ true }}">
+    <div style="background:#D8ECF4;color:#3A6076;font-size:13.5px;font-weight:600;padding:12px clamp(16px,4vw,32px);display:flex;justify-content:center;align-items:center;gap:18px;flex-wrap:wrap">
+      <span style="display:flex;align-items:center;gap:8px"><span style="width:8px;height:8px;border-radius:50%;background:#8FCFE0"></span>30% off your first order</span>
+      <span style="opacity:.4">•</span>
+      <span>Free doorstep pickup in Daliganj</span>
+      <span style="opacity:.4">•</span>
+      <a href="tel:+918791088936" style="color:#2E4A5C;font-weight:700">8791088936</a>
+    </div>
+  </sc-if>
+
+  <header style="position:sticky;top:0;z-index:60;background:rgba(253,248,243,.9);backdrop-filter:blur(14px)">
+    <div style="max-width:1240px;margin:0 auto;padding:16px clamp(16px,4vw,36px);display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap">
+      <a href="#top" style="display:flex;align-items:center;gap:12px">
+        <span style="width:44px;height:44px;border-radius:50%;background:#DCEEF5;display:flex;align-items:center;justify-content:center;flex:none">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 3.6c1 2.3 3.4 4.5 3.4 6.8a3.4 3.4 0 1 1-6.8 0c0-2.3 2.4-4.5 3.4-6.8Z" fill="#7FBED4"/><circle cx="10.6" cy="9.6" r="1" fill="#fff" opacity=".85"/></svg>
+        </span>
+        <span style="display:flex;flex-direction:column;line-height:1">
+          <span style="font-family:Quicksand,sans-serif;font-size:24px;font-weight:700;color:#2E4A5C;letter-spacing:.01em">Aarika</span>
+          <span style="font-size:10px;font-weight:700;letter-spacing:.24em;color:#8FA8B8;margin-top:5px">FABRIC CARE</span>
+        </span>
+      </a>
+      <nav style="display:flex;align-items:center;gap:clamp(14px,2vw,30px);flex-wrap:wrap;justify-content:flex-end;font-family:Quicksand,sans-serif;font-size:15.5px;font-weight:600;color:#5B7A8C">
+        <a href="About.dc.html" style="color:#5B7A8C">About</a>
+        <a href="Services.dc.html" style="color:#5B7A8C">Services</a>
+        <a href="Packages.dc.html" style="color:#5B7A8C">Packages</a>
+        <a href="#reviews" style="color:#5B7A8C">Reviews</a>
+        <a href="Contact.dc.html" style="color:#5B7A8C">Contact</a>
+        <a href="#book" style="background:#8FCFE0;color:#22414F;padding:13px 26px;border-radius:999px;font-weight:700;box-shadow:0 8px 20px rgba(143,207,224,.45)" style-hover="background:#7FBED4;color:#fff">Book a pickup</a>
+      </nav>
+    </div>
+  </header>
+
+  <section id="top" style="position:relative;padding:clamp(36px,6vw,70px) clamp(18px,4vw,36px) 40px;overflow:hidden">
+    <div style="position:absolute;top:40px;left:6%;width:120px;height:120px;border-radius:50%;background:radial-gradient(circle at 32% 30%,#fff 4%,#DCEEF5 42%,#CBE5EF 100%);opacity:.75;animation:bubbleUp 9s ease-in-out infinite"></div>
+    <div style="position:absolute;top:210px;left:3%;width:56px;height:56px;border-radius:50%;background:radial-gradient(circle at 32% 30%,#fff 6%,#E4F2E9 45%,#D2EADF 100%);opacity:.8;animation:bubbleUp 7s ease-in-out infinite"></div>
+    <div style="position:absolute;bottom:60px;left:44%;width:38px;height:38px;border-radius:50%;background:radial-gradient(circle at 32% 30%,#fff 6%,#FBE7DE 45%,#F6D8CA 100%);opacity:.9;animation:bubbleUp 11s ease-in-out infinite"></div>
+    <div style="position:relative;max-width:1240px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,410px),1fr));gap:clamp(32px,5vw,56px);align-items:center">
+      <div style="max-width:560px">
+        <h1 style="font-family:Quicksand,sans-serif;font-size:clamp(36px,5.6vw,66px);line-height:1.1;font-weight:700;color:#2E4A5C;margin:0 0 24px;letter-spacing:-.015em">Soft, fresh and folded &mdash; back in 24 hours.</h1>
+        <p style="font-size:clamp(16.5px,1.5vw,18.5px);line-height:1.75;color:#5F7E90;margin:0 0 36px;max-width:480px">Laundry, dry cleaning and steam ironing in Daliganj, Lucknow. We collect from your door, clean each fabric the way it should be, and return it neatly packed.</p>
+        <div style="display:flex;gap:14px;flex-wrap:wrap;margin-bottom:44px">
+          <a href="#book" style="background:#7FBED4;color:#fff;padding:16px clamp(16px,4vw,36px);border-radius:999px;font-family:Quicksand,sans-serif;font-weight:700;font-size:16px;box-shadow:0 14px 30px rgba(127,190,212,.45)" style-hover="background:#5FA9C4">Book a free pickup</a>
+          <a href="tel:+918791088936" style="background:#fff;border:1.5px solid #E3E0D8;color:#2E4A5C;padding:16.5px 30px;border-radius:999px;font-family:Quicksand,sans-serif;font-weight:700;font-size:16px" style-hover="border-color:#8FCFE0">Call 8791088936</a>
+        </div>
+        <div style="display:flex;gap:12px;flex-wrap:wrap">
+          <span style="display:flex;align-items:center;gap:9px;background:#EAF5F9;border-radius:999px;padding:11px 18px;font-size:14px;font-weight:700;color:#3A6076"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="m5.5 12.5 4 4 9-9.5" stroke="#7FBED4" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Free pickup &amp; delivery</span>
+          <span style="display:flex;align-items:center;gap:9px;background:#E9F5EF;border-radius:999px;padding:11px 18px;font-size:14px;font-weight:700;color:#3E6B5C"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="m5.5 12.5 4 4 9-9.5" stroke="#8CC9AE" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Same-day express</span>
+          <span style="display:flex;align-items:center;gap:9px;background:#FCEFE8" style-hover="background:#FCEFE8">
+            <span style="display:flex;align-items:center;gap:9px;padding:11px 18px;font-size:14px;font-weight:700;color:#96604C"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="m5.5 12.5 4 4 9-9.5" stroke="#E4A88E" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Gentle organic wash</span>
+          </span>
+        </div>
+      </div>
+      <div style="position:relative">
+        <div style="position:absolute;inset:-18px -18px 30px 30px;border-radius:200px 200px 40px 40px;background:#E4F1F6"></div>
+        <div style="position:relative;height:clamp(330px,46vw,530px);border-radius:200px 200px 36px 36px;overflow:hidden;box-shadow:0 30px 60px rgba(46,74,92,.14)">
+          <image-slot id="aarika-hero" shape="rect" placeholder="Drop hero photo — folded laundry, shirt on hanger"></image-slot>
+        </div>
+        <div style="position:absolute;left:-34px;bottom:76px;transform-origin:top center;animation:swayTag 6s ease-in-out infinite">
+          <div style="width:2px;height:26px;background:#D6CFC4;margin:0 auto"></div>
+          <div style="background:#fff;border-radius:18px;padding:20px 24px;box-shadow:0 18px 40px rgba(46,74,92,.16);position:relative">
+            <span style="position:absolute;top:12px;left:50%;transform:translateX(-50%);width:9px;height:9px;border-radius:50%;background:#E7EFF3"></span>
+            <div style="font-family:Quicksand,sans-serif;font-size:40px;font-weight:700;color:#7FBED4;line-height:1;margin-top:12px">30%</div>
+            <div style="font-size:12px;font-weight:700;letter-spacing:.1em;color:#7E96A5;margin-top:8px">OFF FIRST ORDER</div>
+          </div>
+        </div>
+        <div style="position:absolute;right:-10px;top:34px;background:#FBEEE6;border-radius:999px;padding:12px 20px;font-family:Quicksand,sans-serif;font-size:13.5px;font-weight:700;color:#96604C;box-shadow:0 12px 26px rgba(228,168,142,.28)">24-hour turnaround</div>
+      </div>
+    </div>
+  </section>
+
+  <div style="max-width:1240px;margin:0 auto;padding:24px clamp(18px,4vw,36px) clamp(44px,7vw,70px)">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(228px,1fr));gap:16px">
+      <div style="background:#EAF5F9;border-radius:22px;padding:22px 24px;display:flex;align-items:center;gap:14px">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M3 16.4h11V8.6H3v7.8Zm11-4.6h3.3l2.7 2.9v1.7H14v-4.6Z" stroke="#5FA9C4" stroke-width="1.5" stroke-linejoin="round"/><circle cx="7" cy="18.2" r="1.6" stroke="#5FA9C4" stroke-width="1.5"/><circle cx="17" cy="18.2" r="1.6" stroke="#5FA9C4" stroke-width="1.5"/></svg>
+        <span style="font-family:Quicksand,sans-serif;font-size:15px;font-weight:700;color:#3A6076">Free home pickup</span>
+      </div>
+      <div style="background:#E9F5EF;border-radius:22px;padding:22px 24px;display:flex;align-items:center;gap:14px">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8.4" stroke="#7CBFA3" stroke-width="1.5"/><path d="M12 7.6V12l3 1.9" stroke="#7CBFA3" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <span style="font-family:Quicksand,sans-serif;font-size:15px;font-weight:700;color:#3E6B5C">Same-day express</span>
+      </div>
+      <div style="background:#FBEEE6;border-radius:22px;padding:22px 24px;display:flex;align-items:center;gap:14px">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M12 4.4c1.3 2.8 4.2 5.3 4.2 8a4.2 4.2 0 1 1-8.4 0c0-2.7 2.9-5.2 4.2-8Z" stroke="#DB9C80" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        <span style="font-family:Quicksand,sans-serif;font-size:15px;font-weight:700;color:#96604C">Skin-safe detergents</span>
+      </div>
+      <div style="background:#F1EEF8;border-radius:22px;padding:22px 24px;display:flex;align-items:center;gap:14px">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M12 3.8 5 7v4.6c0 4.2 3 7.6 7 8.6 4-1 7-4.4 7-8.6V7l-7-3.2Z" stroke="#9A8FC4" stroke-width="1.5" stroke-linejoin="round"/><path d="m9.4 12 1.9 1.9 3.4-3.8" stroke="#9A8FC4" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <span style="font-family:Quicksand,sans-serif;font-size:15px;font-weight:700;color:#5C5288">Fabric-safe cleaning</span>
+      </div>
+    </div>
+  </div>
+
+  <section id="about" style="background:#EAF5F9;border-radius:clamp(28px,4vw,48px);margin:0 clamp(8px,2vw,20px);padding:clamp(52px,8vw,96px) clamp(18px,4vw,36px);position:relative;overflow:hidden">
+    <div style="position:absolute;right:8%;top:44px;width:88px;height:88px;border-radius:50%;background:radial-gradient(circle at 32% 30%,#fff 6%,#DCEEF5 45%,#C7E2EE 100%);opacity:.7;animation:bubbleUp 10s ease-in-out infinite"></div>
+    <div style="position:relative;max-width:1240px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:clamp(38px,5vw,76px);align-items:center">
+      <div style="position:relative">
+        <div style="height:clamp(320px,44vw,520px);border-radius:36px;overflow:hidden;box-shadow:0 26px 54px rgba(46,74,92,.14)">
+          <image-slot id="aarika-about" shape="rect" placeholder="Drop store photo — counter, machines or staff"></image-slot>
+        </div>
+        <div style="position:absolute;right:-24px;bottom:-24px;background:#fff;border-radius:26px;padding:22px 26px;box-shadow:0 18px 40px rgba(46,74,92,.14);display:flex;align-items:center;gap:16px">
+          <div style="display:grid;gap:5px">
+            <span style="display:block;width:56px;height:9px;border-radius:5px;background:#F2E3D8"></span>
+            <span style="display:block;width:56px;height:9px;border-radius:5px;background:#DCEEF5"></span>
+            <span style="display:block;width:56px;height:9px;border-radius:5px;background:#D9EDE3"></span>
+            <span style="display:block;width:56px;height:9px;border-radius:5px;background:#E4E0F2"></span>
+          </div>
+          <span style="font-family:Quicksand,sans-serif;font-size:14.5px;font-weight:700;color:#3A6076;line-height:1.5">Sorted by fabric,<br />washed separately</span>
+        </div>
+      </div>
+      <div>
+        <h2 style="font-family:Quicksand,sans-serif;font-size:clamp(29px,4.2vw,46px);font-weight:700;color:#2E4A5C;margin:0 0 22px;line-height:1.15;letter-spacing:-.015em">Laundry done the way you would do it at home</h2>
+        <p style="font-size:17.5px;line-height:1.85;color:#5F7E90;margin:0 0 38px;max-width:520px">Aarika Fabric Care handles everything from a week of daily wear to a wedding saree. Each garment is tagged, sorted by fabric, treated for stains by hand and finished with a professional steam press before it comes back to you.</p>
+        <div style="display:grid;gap:16px">
+          <div style="display:flex;gap:18px;align-items:flex-start;background:#fff;border-radius:22px;padding:22px 24px">
+            <span style="width:44px;height:44px;border-radius:50%;background:#EAF5F9;display:flex;align-items:center;justify-content:center;flex:none;font-family:Quicksand,sans-serif;font-weight:700;color:#5FA9C4">1</span>
+            <div><div style="font-family:Quicksand,sans-serif;font-size:17.5px;font-weight:700;color:#2E4A5C;margin-bottom:5px">No colour bleed, no shrinkage</div><div style="font-size:15px;line-height:1.7;color:#6D8A9B">Cottons, woollens, silks and synthetics run on their own cycles.</div></div>
+          </div>
+          <div style="display:flex;gap:18px;align-items:flex-start;background:#fff;border-radius:22px;padding:22px 24px">
+            <span style="width:44px;height:44px;border-radius:50%;background:#E9F5EF;display:flex;align-items:center;justify-content:center;flex:none;font-family:Quicksand,sans-serif;font-weight:700;color:#7CBFA3">2</span>
+            <div><div style="font-family:Quicksand,sans-serif;font-size:17.5px;font-weight:700;color:#2E4A5C;margin-bottom:5px">Delivered when we promise</div><div style="font-size:15px;line-height:1.7;color:#6D8A9B">24 to 48 hours as standard, same-day express when you are in a hurry.</div></div>
+          </div>
+          <div style="display:flex;gap:18px;align-items:flex-start;background:#fff;border-radius:22px;padding:22px 24px">
+            <span style="width:44px;height:44px;border-radius:50%;background:#FBEEE6;display:flex;align-items:center;justify-content:center;flex:none;font-family:Quicksand,sans-serif;font-weight:700;color:#DB9C80">3</span>
+            <div><div style="font-family:Quicksand,sans-serif;font-size:17.5px;font-weight:700;color:#2E4A5C;margin-bottom:5px">Pickup costs you nothing</div><div style="font-size:15px;line-height:1.7;color:#6D8A9B">Free collection and delivery across Daliganj and nearby Lucknow.</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="services" style="padding:clamp(56px,8vw,100px) clamp(18px,4vw,36px)">
+    <div style="max-width:1240px;margin:0 auto">
+      <div style="text-align:center;max-width:620px;margin:0 auto 54px">
+        <h2 style="font-family:Quicksand,sans-serif;font-size:clamp(29px,4.2vw,46px);font-weight:700;color:#2E4A5C;margin:0 0 16px;line-height:1.15;letter-spacing:-.015em">Everything we clean</h2>
+        <p style="font-size:17px;line-height:1.75;color:#6D8A9B;margin:0">From a shirt for tomorrow morning to the carpet you cannot lift into a machine.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(228px,1fr));gap:20px">
+        <div style="background:#fff;border-radius:26px;padding:32px 28px" style-hover="box-shadow:0 18px 40px rgba(46,74,92,.10)">
+          <span style="width:56px;height:56px;border-radius:50%;background:#EAF5F9;display:flex;align-items:center;justify-content:center;margin-bottom:20px"><svg width="28" height="28" viewBox="0 0 24 24" fill="none"><rect x="4" y="3" width="16" height="18" rx="4" stroke="#5FA9C4" stroke-width="1.5"/><circle cx="12" cy="14" r="4.2" stroke="#8FCFE0" stroke-width="1.5"/><circle cx="7.8" cy="6.4" r=".9" fill="#8FCFE0"/></svg></span>
+          <div style="font-family:Quicksand,sans-serif;font-size:18px;font-weight:700;color:#2E4A5C;margin-bottom:8px">Wash &amp; fold</div>
+          <div style="font-size:14.5px;line-height:1.7;color:#7A94A5">Daily wear washed, dried and folded. Priced per kilo.</div>
+        </div>
+        <div style="background:#fff;border-radius:26px;padding:32px 28px" style-hover="box-shadow:0 18px 40px rgba(46,74,92,.10)">
+          <span style="width:56px;height:56px;border-radius:50%;background:#F1EEF8;display:flex;align-items:center;justify-content:center;margin-bottom:20px"><svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M12 4 6 7.4v3.9c0 4.1 2.6 6.8 6 7.8 3.4-1 6-3.7 6-7.8V7.4L12 4Z" stroke="#9A8FC4" stroke-width="1.5" stroke-linejoin="round"/><path d="m9.5 12 1.9 1.9 3.4-3.8" stroke="#B9AEDD" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+          <div style="font-family:Quicksand,sans-serif;font-size:18px;font-weight:700;color:#2E4A5C;margin-bottom:8px">Dry cleaning</div>
+          <div style="font-size:14.5px;line-height:1.7;color:#7A94A5">Suits, coats, kurtas and party wear kept crisp and colour-true.</div>
+        </div>
+        <div style="background:#fff;border-radius:26px;padding:32px 28px" style-hover="box-shadow:0 18px 40px rgba(46,74,92,.10)">
+          <span style="width:56px;height:56px;border-radius:50%;background:#FBEEE6;display:flex;align-items:center;justify-content:center;margin-bottom:20px"><svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M4 16h11a5 5 0 0 0-5-5H7l-3 5Z" stroke="#DB9C80" stroke-width="1.5" stroke-linejoin="round"/><path d="M15 16h5" stroke="#DB9C80" stroke-width="1.5" stroke-linecap="round"/><path d="M17 8.4c1.2-1 .3-2.2 1.6-3" stroke="#EFC0A8" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+          <div style="font-family:Quicksand,sans-serif;font-size:18px;font-weight:700;color:#2E4A5C;margin-bottom:8px">Steam ironing</div>
+          <div style="font-size:14.5px;line-height:1.7;color:#7A94A5">Wrinkle-free press for shirts, trousers and uniforms.</div>
+        </div>
+        <div style="background:#fff;border-radius:26px;padding:32px 28px" style-hover="box-shadow:0 18px 40px rgba(46,74,92,.10)">
+          <span style="width:56px;height:56px;border-radius:50%;background:#E9F5EF;display:flex;align-items:center;justify-content:center;margin-bottom:20px"><svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M12 4.4c1.3 2.8 4.2 5.3 4.2 8a4.2 4.2 0 1 1-8.4 0c0-2.7 2.9-5.2 4.2-8Z" stroke="#7CBFA3" stroke-width="1.5" stroke-linejoin="round"/><path d="M10 13.4c0 1.3 1 2.2 2.2 2.4" stroke="#A6D8C2" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+          <div style="font-family:Quicksand,sans-serif;font-size:18px;font-weight:700;color:#2E4A5C;margin-bottom:8px">Organic wash</div>
+          <div style="font-size:14.5px;line-height:1.7;color:#7A94A5">Mild, skin-safe detergents for babies and sensitive skin.</div>
+        </div>
+        <div style="background:#fff;border-radius:26px;padding:32px 28px" style-hover="box-shadow:0 18px 40px rgba(46,74,92,.10)">
+          <span style="width:56px;height:56px;border-radius:50%;background:#EAF5F9;display:flex;align-items:center;justify-content:center;margin-bottom:20px"><svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M4 16.4V11a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v5.4" stroke="#5FA9C4" stroke-width="1.5" stroke-linejoin="round"/><path d="M4 16.4h16V19H4z" stroke="#8FCFE0" stroke-width="1.5" stroke-linejoin="round"/><path d="M7.6 9V7.2c0-.9.7-1.6 1.6-1.6h5.6c.9 0 1.6.7 1.6 1.6V9" stroke="#5FA9C4" stroke-width="1.5"/></svg></span>
+          <div style="font-family:Quicksand,sans-serif;font-size:18px;font-weight:700;color:#2E4A5C;margin-bottom:8px">Blankets &amp; quilts</div>
+          <div style="font-size:14.5px;line-height:1.7;color:#7A94A5">Deep washed, dried right through and returned fluffy.</div>
+        </div>
+        <div style="background:#fff;border-radius:26px;padding:32px 28px" style-hover="box-shadow:0 18px 40px rgba(46,74,92,.10)">
+          <span style="width:56px;height:56px;border-radius:50%;background:#F1EEF8;display:flex;align-items:center;justify-content:center;margin-bottom:20px"><svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M4.5 7c3 1.6 5 4.6 5 8.2 0 1.4 1 2.3 2.5 2.3h7.5" stroke="#9A8FC4" stroke-width="1.5" stroke-linecap="round"/><path d="M6.5 11c2.6 0 4.3 1.6 5.2 3.4" stroke="#B9AEDD" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+          <div style="font-family:Quicksand,sans-serif;font-size:18px;font-weight:700;color:#2E4A5C;margin-bottom:8px">Saree care</div>
+          <div style="font-size:14.5px;line-height:1.7;color:#7A94A5">Silk, chiffon and zari handled gently, with roll packing.</div>
+        </div>
+        <div style="background:#fff;border-radius:26px;padding:32px 28px" style-hover="box-shadow:0 18px 40px rgba(46,74,92,.10)">
+          <span style="width:56px;height:56px;border-radius:50%;background:#FBEEE6;display:flex;align-items:center;justify-content:center;margin-bottom:20px"><svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M4 15.5c1.5.6 3 .4 4-1 1.4 1.6 3.6 1.6 5 0l2.5 1c1.6.6 3.5.2 4.5-1" stroke="#DB9C80" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 15.5V10c0-1.4 1.6-2.2 2.7-1.4L9 10" stroke="#EFC0A8" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+          <div style="font-family:Quicksand,sans-serif;font-size:18px;font-weight:700;color:#2E4A5C;margin-bottom:8px">Shoes &amp; bags</div>
+          <div style="font-size:14.5px;line-height:1.7;color:#7A94A5">Sneakers, leather and handbags cleaned and conditioned.</div>
+        </div>
+        <div style="background:#fff;border-radius:26px;padding:32px 28px" style-hover="box-shadow:0 18px 40px rgba(46,74,92,.10)">
+          <span style="width:56px;height:56px;border-radius:50%;background:#E9F5EF;display:flex;align-items:center;justify-content:center;margin-bottom:20px"><svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M4 17v-4.6A2.4 2.4 0 0 1 6.4 10h11.2a2.4 2.4 0 0 1 2.4 2.4V17" stroke="#7CBFA3" stroke-width="1.5" stroke-linejoin="round"/><path d="M6 10V8a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2" stroke="#A6D8C2" stroke-width="1.5"/><path d="M4 17h16v2.2H4z" stroke="#7CBFA3" stroke-width="1.5"/></svg></span>
+          <div style="font-family:Quicksand,sans-serif;font-size:18px;font-weight:700;color:#2E4A5C;margin-bottom:8px">Sofa &amp; carpet</div>
+          <div style="font-size:14.5px;line-height:1.7;color:#7A94A5">On-site shampoo and vacuum extraction for home furnishing.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="background:#F3EFE7;border-radius:clamp(28px,4vw,48px);margin:0 clamp(8px,2vw,20px);padding:clamp(52px,8vw,96px) clamp(18px,4vw,36px)">
+    <div style="max-width:1240px;margin:0 auto">
+      <div style="text-align:center;max-width:620px;margin:0 auto 60px">
+        <h2 style="font-family:Quicksand,sans-serif;font-size:clamp(29px,4.2vw,46px);font-weight:700;color:#2E4A5C;margin:0 0 16px;line-height:1.15;letter-spacing:-.015em">How it works</h2>
+        <p style="font-size:17px;line-height:1.75;color:#6D8A9B;margin:0">Four easy steps, and no waiting at a counter.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(228px,1fr));gap:22px">
+        <div style="background:#fff;border-radius:28px;padding:34px 28px;text-align:center">
+          <span style="width:76px;height:76px;border-radius:50%;background:#EAF5F9;display:flex;align-items:center;justify-content:center;margin:0 auto 20px"><span style="width:50px;height:50px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;font-family:Quicksand,sans-serif;font-size:22px;font-weight:700;color:#5FA9C4">1</span></span>
+          <div style="font-family:Quicksand,sans-serif;font-size:19px;font-weight:700;color:#2E4A5C;margin-bottom:8px">Book</div>
+          <div style="font-size:14.5px;line-height:1.7;color:#7A94A5">Call us or fill the pickup form with a slot that suits you.</div>
+        </div>
+        <div style="background:#fff;border-radius:28px;padding:34px 28px;text-align:center">
+          <span style="width:76px;height:76px;border-radius:50%;background:#E9F5EF;display:flex;align-items:center;justify-content:center;margin:0 auto 20px"><span style="width:50px;height:50px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;font-family:Quicksand,sans-serif;font-size:22px;font-weight:700;color:#7CBFA3">2</span></span>
+          <div style="font-family:Quicksand,sans-serif;font-size:19px;font-weight:700;color:#2E4A5C;margin-bottom:8px">Pickup</div>
+          <div style="font-size:14.5px;line-height:1.7;color:#7A94A5">We collect from your door, count the pieces and tag them.</div>
+        </div>
+        <div style="background:#fff;border-radius:28px;padding:34px 28px;text-align:center">
+          <span style="width:76px;height:76px;border-radius:50%;background:#F1EEF8;display:flex;align-items:center;justify-content:center;margin:0 auto 20px"><span style="width:50px;height:50px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;font-family:Quicksand,sans-serif;font-size:22px;font-weight:700;color:#9A8FC4">3</span></span>
+          <div style="font-family:Quicksand,sans-serif;font-size:19px;font-weight:700;color:#2E4A5C;margin-bottom:8px">Clean</div>
+          <div style="font-size:14.5px;line-height:1.7;color:#7A94A5">Sorted, stain-treated, washed or dry cleaned, then pressed.</div>
+        </div>
+        <div style="background:#fff;border-radius:28px;padding:34px 28px;text-align:center">
+          <span style="width:76px;height:76px;border-radius:50%;background:#FBEEE6;display:flex;align-items:center;justify-content:center;margin:0 auto 20px"><span style="width:50px;height:50px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;font-family:Quicksand,sans-serif;font-size:22px;font-weight:700;color:#DB9C80">4</span></span>
+          <div style="font-family:Quicksand,sans-serif;font-size:19px;font-weight:700;color:#2E4A5C;margin-bottom:8px">Deliver</div>
+          <div style="font-size:14.5px;line-height:1.7;color:#7A94A5">Packed and back at your door within 24 to 48 hours.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="packages" style="padding:clamp(56px,8vw,100px) clamp(18px,4vw,36px)">
+    <div style="max-width:1240px;margin:0 auto">
+      <div style="text-align:center;max-width:620px;margin:0 auto 54px">
+        <h2 style="font-family:Quicksand,sans-serif;font-size:clamp(29px,4.2vw,46px);font-weight:700;color:#2E4A5C;margin:0 0 16px;line-height:1.15;letter-spacing:-.015em">Opening packages</h2>
+        <p style="font-size:17px;line-height:1.75;color:#6D8A9B;margin:0">Valid up to 20 September. Free pickup and delivery in all three.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(272px,1fr));gap:24px;align-items:center">
+        <div style="background:#fff;border-radius:30px;padding:40px 34px">
+          <div style="font-size:12.5px;font-weight:700;letter-spacing:.14em;color:#8FA8B8;margin-bottom:18px">FIRST ORDER</div>
+          <div style="font-family:Quicksand,sans-serif;font-size:clamp(42px,4.6vw,56px);font-weight:700;color:#5FA9C4;line-height:1;margin-bottom:8px">30%</div>
+          <div style="font-size:15px;color:#7A94A5;margin-bottom:30px">off, on any service</div>
+          <div style="display:grid;gap:14px;font-size:15px;color:#5F7E90;margin-bottom:34px">
+            <div style="display:flex;gap:10px"><span style="color:#8FCFE0">✓</span>No minimum order value</div>
+            <div style="display:flex;gap:10px"><span style="color:#8FCFE0">✓</span>Free pickup and delivery</div>
+            <div style="display:flex;gap:10px"><span style="color:#8FCFE0">✓</span>New customers only</div>
+          </div>
+          <a href="#book" style="display:block;text-align:center;background:#EAF5F9;color:#3A6076;padding:15px;border-radius:999px;font-family:Quicksand,sans-serif;font-weight:700" style-hover="background:#8FCFE0;color:#fff">Claim offer</a>
+        </div>
+        <div style="background:#DCEEF5;border-radius:34px;padding:48px 36px;box-shadow:0 26px 54px rgba(46,74,92,.14);position:relative">
+          <div style="position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:#fff;color:#5FA9C4;font-size:11.5px;font-weight:700;letter-spacing:.12em;padding:7px 16px;border-radius:999px;box-shadow:0 8px 18px rgba(46,74,92,.10)">MOST POPULAR</div>
+          <div style="font-size:12.5px;font-weight:700;letter-spacing:.14em;color:#5A8298;margin-bottom:18px">MONTHLY FAMILY PLAN</div>
+          <div style="font-family:Quicksand,sans-serif;font-size:clamp(42px,4.6vw,56px);font-weight:700;color:#2E4A5C;line-height:1;margin-bottom:8px">₹1,499</div>
+          <div style="font-size:15px;color:#5A8298;margin-bottom:30px">per month</div>
+          <div style="display:grid;gap:14px;font-size:15px;color:#3A6076;margin-bottom:34px">
+            <div style="display:flex;gap:10px"><span style="color:#fff">✓</span>Up to 30 kg wash &amp; fold</div>
+            <div style="display:flex;gap:10px"><span style="color:#fff">✓</span>10 pieces of steam ironing free</div>
+            <div style="display:flex;gap:10px"><span style="color:#fff">✓</span>Priority pickup slots</div>
+          </div>
+          <a href="#book" style="display:block;text-align:center;background:#5FA9C4;color:#fff;padding:16px;border-radius:999px;font-family:Quicksand,sans-serif;font-weight:700" style-hover="background:#2E4A5C">Start the plan</a>
+        </div>
+        <div style="background:#fff;border-radius:30px;padding:40px 34px">
+          <div style="font-size:12.5px;font-weight:700;letter-spacing:.14em;color:#8FA8B8;margin-bottom:18px">FESTIVE DRY CLEAN</div>
+          <div style="font-family:Quicksand,sans-serif;font-size:clamp(42px,4.6vw,56px);font-weight:700;color:#DB9C80;line-height:1;margin-bottom:8px">₹999</div>
+          <div style="font-size:15px;color:#7A94A5;margin-bottom:30px">for any 5 pieces</div>
+          <div style="display:grid;gap:14px;font-size:15px;color:#5F7E90;margin-bottom:34px">
+            <div style="display:flex;gap:10px"><span style="color:#EFC0A8">✓</span>Ethnic or formal wear</div>
+            <div style="display:flex;gap:10px"><span style="color:#EFC0A8">✓</span>Stain treatment included</div>
+            <div style="display:flex;gap:10px"><span style="color:#EFC0A8">✓</span>Returned on hangers, covered</div>
+          </div>
+          <a href="#book" style="display:block;text-align:center;background:#FBEEE6;color:#96604C;padding:15px;border-radius:999px;font-family:Quicksand,sans-serif;font-weight:700" style-hover="background:#E4A88E;color:#fff">Book pieces</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="book" style="background:#EAF5F9;border-radius:clamp(28px,4vw,48px);margin:0 clamp(8px,2vw,20px);padding:clamp(52px,8vw,96px) clamp(18px,4vw,36px);position:relative;overflow:hidden">
+    <div style="position:absolute;left:6%;bottom:60px;width:100px;height:100px;border-radius:50%;background:radial-gradient(circle at 32% 30%,#fff 6%,#DCEEF5 45%,#C7E2EE 100%);opacity:.6;animation:bubbleUp 12s ease-in-out infinite"></div>
+    <div style="position:relative;max-width:1240px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:clamp(38px,5vw,70px);align-items:start">
+      <div>
+        <h2 style="font-family:Quicksand,sans-serif;font-size:clamp(29px,4.2vw,46px);font-weight:700;color:#2E4A5C;margin:0 0 20px;line-height:1.15;letter-spacing:-.015em">Book a pickup</h2>
+        <p style="font-size:17.5px;line-height:1.8;color:#5F7E90;margin:0 0 36px;max-width:440px">Tell us what needs cleaning and when we should collect. We confirm on WhatsApp within the hour.</p>
+        <div style="display:grid;gap:14px;max-width:440px">
+          <a href="tel:+918791088936" style="display:flex;gap:16px;align-items:center;background:#fff;border-radius:22px;padding:20px 24px" style-hover="box-shadow:0 14px 30px rgba(46,74,92,.10)">
+            <span style="width:44px;height:44px;border-radius:50%;background:#EAF5F9;display:flex;align-items:center;justify-content:center;flex:none"><svg width="21" height="21" viewBox="0 0 24 24" fill="none"><path d="M6.5 4h3l1.5 4-2 1.4a11 11 0 0 0 5.6 5.6L16 13l4 1.5v3a2 2 0 0 1-2.2 2A15.5 15.5 0 0 1 4.5 6.2 2 2 0 0 1 6.5 4Z" stroke="#5FA9C4" stroke-width="1.5" stroke-linejoin="round"/></svg></span>
+            <span><span style="display:block;font-size:12.5px;color:#8FA8B8;font-weight:700;letter-spacing:.08em">CALL OR WHATSAPP</span><span style="display:block;font-family:Quicksand,sans-serif;font-size:19px;font-weight:700;color:#2E4A5C;margin-top:3px">8791088936 &middot; 6392567352</span></span>
+          </a>
+          <div style="display:flex;gap:16px;align-items:flex-start;background:#fff;border-radius:22px;padding:20px 24px">
+            <span style="width:44px;height:44px;border-radius:50%;background:#FBEEE6;display:flex;align-items:center;justify-content:center;flex:none"><svg width="21" height="21" viewBox="0 0 24 24" fill="none"><path d="M12 21s6.4-5.6 6.4-10.2A6.4 6.4 0 0 0 5.6 10.8C5.6 15.4 12 21 12 21Z" stroke="#DB9C80" stroke-width="1.5" stroke-linejoin="round"/><circle cx="12" cy="10.6" r="2.2" stroke="#DB9C80" stroke-width="1.5"/></svg></span>
+            <span><span style="display:block;font-size:12.5px;color:#8FA8B8;font-weight:700;letter-spacing:.08em">STORE</span><span style="display:block;font-size:15.5px;font-weight:600;color:#3A6076;line-height:1.6;margin-top:4px">498/58 Qureshi Plaza, Near Hari Masjid,<br />Daliganj, Lucknow 226020</span></span>
+          </div>
+        </div>
+      </div>
+      <div style="background:#fff;border-radius:32px;padding:40px 36px;box-shadow:0 22px 48px rgba(46,74,92,.10)">
+        <sc-if value="{{ submitted }}" hint-placeholder-val="{{ false }}">
+          <div style="padding:54px 10px;text-align:center">
+            <span style="width:64px;height:64px;border-radius:50%;background:#E9F5EF;display:flex;align-items:center;justify-content:center;margin:0 auto 20px"><svg width="30" height="30" viewBox="0 0 24 24" fill="none"><path d="m6.5 12.4 3.5 3.4 7.5-8" stroke="#7CBFA3" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <div style="font-family:Quicksand,sans-serif;font-size:28px;font-weight:700;color:#2E4A5C;margin-bottom:10px">Request received</div>
+            <div style="font-size:16px;line-height:1.7;color:#7A94A5;margin-bottom:28px">Thank you. We will call you shortly to confirm your pickup slot.</div>
+            <button type="button" onClick="{{ reset }}" style="background:#EAF5F9;border:none;color:#3A6076;padding:14px 30px;border-radius:999px;font-family:Quicksand,sans-serif;font-weight:700;cursor:pointer;font-size:15px">Book another pickup</button>
+          </div>
+        </sc-if>
+        <sc-if value="{{ notSubmitted }}" hint-placeholder-val="{{ true }}">
+          <form onSubmit="{{ submit }}" style="display:grid;gap:18px">
+            <div style="display:grid;gap:8px">
+              <label style="font-size:13px;font-weight:700;color:#5F7E90">Your name</label>
+              <input type="text" value="{{ name }}" onChange="{{ setName }}" placeholder="Full name" style="border:1.5px solid #E7EFF3;background:#FBFDFE;border-radius:16px;padding:14px 18px;font-size:15.5px;color:#2E4A5C;outline:none" style-focus="border-color:#8FCFE0" />
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:18px">
+              <div style="display:grid;gap:8px">
+                <label style="font-size:13px;font-weight:700;color:#5F7E90">Phone</label>
+                <input type="tel" value="{{ phone }}" onChange="{{ setPhone }}" placeholder="10-digit mobile" style="border:1.5px solid #E7EFF3;background:#FBFDFE;border-radius:16px;padding:14px 18px;font-size:15.5px;color:#2E4A5C;outline:none" style-focus="border-color:#8FCFE0" />
+              </div>
+              <div style="display:grid;gap:8px">
+                <label style="font-size:13px;font-weight:700;color:#5F7E90">Pickup date</label>
+                <input type="date" value="{{ date }}" onChange="{{ setDate }}" style="border:1.5px solid #E7EFF3;background:#FBFDFE;border-radius:16px;padding:13px 18px;font-size:15.5px;color:#2E4A5C;outline:none" style-focus="border-color:#8FCFE0" />
+              </div>
+            </div>
+            <div style="display:grid;gap:8px">
+              <label style="font-size:13px;font-weight:700;color:#5F7E90">Service</label>
+              <select value="{{ service }}" onChange="{{ setService }}" style="border:1.5px solid #E7EFF3;background:#FBFDFE;border-radius:16px;padding:14px 18px;font-size:15.5px;color:#2E4A5C;outline:none" style-focus="border-color:#8FCFE0">
+                <option>Wash &amp; fold</option>
+                <option>Dry cleaning</option>
+                <option>Steam ironing</option>
+                <option>Organic wash</option>
+                <option>Blankets &amp; quilts</option>
+                <option>Saree care</option>
+                <option>Shoes &amp; bags</option>
+                <option>Sofa &amp; carpet cleaning</option>
+              </select>
+            </div>
+            <div style="display:grid;gap:8px">
+              <label style="font-size:13px;font-weight:700;color:#5F7E90">Address &amp; notes</label>
+              <textarea rows="3" value="{{ note }}" onChange="{{ setNote }}" placeholder="House / flat, landmark, and anything we should know" style="border:1.5px solid #E7EFF3;background:#FBFDFE;border-radius:16px;padding:14px 18px;font-size:15.5px;color:#2E4A5C;outline:none;resize:vertical"></textarea>
+            </div>
+            <button type="submit" style="background:#7FBED4;color:#fff;border:none;padding:17px;border-radius:999px;font-family:Quicksand,sans-serif;font-size:16px;font-weight:700;cursor:pointer;box-shadow:0 14px 28px rgba(127,190,212,.4)" style-hover="background:#5FA9C4">Request pickup</button>
+            <div style="font-size:13px;color:#9BB0BD;text-align:center">Free pickup across Daliganj &middot; 30% off your first order</div>
+          </form>
+        </sc-if>
+      </div>
+    </div>
+  </section>
+
+  <section id="reviews" style="padding:clamp(56px,8vw,100px) clamp(18px,4vw,36px)">
+    <div style="max-width:1240px;margin:0 auto">
+      <div style="text-align:center;max-width:620px;margin:0 auto 50px">
+        <h2 style="font-family:Quicksand,sans-serif;font-size:clamp(29px,4.2vw,46px);font-weight:700;color:#2E4A5C;margin:0 0 16px;line-height:1.15;letter-spacing:-.015em">What customers say</h2>
+        <p style="font-size:17px;line-height:1.75;color:#6D8A9B;margin:0">A few words from the first families we cleaned for.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(272px,1fr));gap:24px">
+        <div style="background:#fff;border-radius:28px;padding:34px 32px">
+          <div style="color:#EFC77F;font-size:15px;letter-spacing:3px;margin-bottom:18px">★★★★★</div>
+          <p style="font-size:16px;line-height:1.8;color:#5F7E90;margin:0 0 24px">The pickup boy came exactly on time, and the shirts came back better pressed than the shop near our house.</p>
+          <div style="display:flex;align-items:center;gap:12px">
+            <span style="width:42px;height:42px;border-radius:50%;background:#DCEEF5;display:flex;align-items:center;justify-content:center;font-family:Quicksand,sans-serif;font-weight:700;color:#5FA9C4">S</span>
+            <span><span style="display:block;font-family:Quicksand,sans-serif;font-size:15.5px;font-weight:700;color:#2E4A5C">Shalini Verma</span><span style="display:block;font-size:13.5px;color:#9BB0BD">Daliganj</span></span>
+          </div>
+        </div>
+        <div style="background:#fff;border-radius:28px;padding:34px 32px">
+          <div style="color:#EFC77F;font-size:15px;letter-spacing:3px;margin-bottom:18px">★★★★★</div>
+          <p style="font-size:16px;line-height:1.8;color:#5F7E90;margin:0 0 24px">Gave two silk sarees for dry cleaning before a wedding. The zari is intact and the colour has not faded at all.</p>
+          <div style="display:flex;align-items:center;gap:12px">
+            <span style="width:42px;height:42px;border-radius:50%;background:#F1EEF8;display:flex;align-items:center;justify-content:center;font-family:Quicksand,sans-serif;font-weight:700;color:#9A8FC4">R</span>
+            <span><span style="display:block;font-family:Quicksand,sans-serif;font-size:15.5px;font-weight:700;color:#2E4A5C">Ruchi Agarwal</span><span style="display:block;font-size:13.5px;color:#9BB0BD">Nirala Nagar</span></span>
+          </div>
+        </div>
+        <div style="background:#fff;border-radius:28px;padding:34px 32px">
+          <div style="color:#EFC77F;font-size:15px;letter-spacing:3px;margin-bottom:18px">★★★★★</div>
+          <p style="font-size:16px;line-height:1.8;color:#5F7E90;margin:0 0 24px">I use the monthly plan for the whole family. One call and they collect. Same-day express saved me before a client meeting.</p>
+          <div style="display:flex;align-items:center;gap:12px">
+            <span style="width:42px;height:42px;border-radius:50%;background:#FBEEE6;display:flex;align-items:center;justify-content:center;font-family:Quicksand,sans-serif;font-weight:700;color:#DB9C80">A</span>
+            <span><span style="display:block;font-family:Quicksand,sans-serif;font-size:15.5px;font-weight:700;color:#2E4A5C">Arun Mishra</span><span style="display:block;font-size:13.5px;color:#9BB0BD">Mahanagar</span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" style="background:#F3EFE7;border-radius:clamp(28px,4vw,48px);margin:0 clamp(8px,2vw,20px);padding:clamp(52px,8vw,96px) clamp(18px,4vw,36px)">
+    <div style="max-width:1240px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:clamp(36px,5vw,64px);align-items:center">
+      <div>
+        <h2 style="font-family:Quicksand,sans-serif;font-size:clamp(29px,4.2vw,46px);font-weight:700;color:#2E4A5C;margin:0 0 20px;line-height:1.15;letter-spacing:-.015em">Visit the store</h2>
+        <p style="font-size:17.5px;line-height:1.8;color:#5F7E90;margin:0 0 32px;max-width:400px">498/58 Qureshi Plaza, Near Hari Masjid, Daliganj, Lucknow 226020</p>
+        <div style="background:#fff;border-radius:26px;padding:26px 28px;display:grid;gap:16px;max-width:420px;margin-bottom:32px">
+          <div style="display:flex;justify-content:space-between"><span style="font-family:Quicksand,sans-serif;font-size:15px;font-weight:700;color:#2E4A5C">Monday &ndash; Saturday</span><span style="font-size:15px;color:#7A94A5">8:00 am &ndash; 9:00 pm</span></div>
+          <div style="display:flex;justify-content:space-between"><span style="font-family:Quicksand,sans-serif;font-size:15px;font-weight:700;color:#2E4A5C">Sunday</span><span style="font-size:15px;color:#7A94A5">10:00 am &ndash; 6:00 pm</span></div>
+          <div style="display:flex;justify-content:space-between"><span style="font-family:Quicksand,sans-serif;font-size:15px;font-weight:700;color:#2E4A5C">Pickup slots</span><span style="font-size:15px;color:#7A94A5">9:00 am &ndash; 8:00 pm</span></div>
+        </div>
+        <a href="https://www.google.com/maps/search/?api=1&amp;query=Qureshi+Plaza+Near+Hari+Masjid+Daliganj+Lucknow" target="_blank" rel="noopener" style="display:inline-block;background:#7FBED4;color:#fff;padding:16px 32px;border-radius:999px;font-family:Quicksand,sans-serif;font-weight:700;box-shadow:0 12px 26px rgba(127,190,212,.4)" style-hover="background:#5FA9C4">Get directions</a>
+      </div>
+      <div style="height:clamp(300px,40vw,440px);border-radius:34px;overflow:hidden;box-shadow:0 22px 46px rgba(46,74,92,.12)">
+        <iframe title="Aarika Fabric Care location" src="https://maps.google.com/maps?q=Qureshi%20Plaza%20Hari%20Masjid%20Daliganj%20Lucknow&amp;z=15&amp;output=embed" style="width:100%;height:100%;border:0;display:block" loading="lazy"></iframe>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding:clamp(56px,8vw,100px) clamp(18px,4vw,36px) clamp(50px,7vw,90px);position:relative;overflow:hidden">
+    <div style="position:absolute;left:12%;top:50px;width:70px;height:70px;border-radius:50%;background:radial-gradient(circle at 32% 30%,#fff 6%,#DCEEF5 45%,#C7E2EE 100%);opacity:.7;animation:bubbleUp 9s ease-in-out infinite"></div>
+    <div style="position:absolute;right:14%;bottom:60px;width:50px;height:50px;border-radius:50%;background:radial-gradient(circle at 32% 30%,#fff 6%,#FBE7DE 45%,#F6D8CA 100%);opacity:.8;animation:bubbleUp 11s ease-in-out infinite"></div>
+    <div style="position:relative;max-width:820px;margin:0 auto;text-align:center">
+      <h2 style="font-family:Quicksand,sans-serif;font-size:clamp(32px,4.8vw,52px);font-weight:700;color:#2E4A5C;margin:0 0 18px;line-height:1.15;letter-spacing:-.015em">Give your clothes the freshness they deserve</h2>
+      <p style="font-size:18px;line-height:1.75;color:#6D8A9B;margin:0 0 34px">Book a free pickup today and take 30% off your first order.</p>
+      <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
+        <a href="#book" style="background:#7FBED4;color:#fff;padding:18px 38px;border-radius:999px;font-family:Quicksand,sans-serif;font-weight:700;font-size:16px;box-shadow:0 14px 30px rgba(127,190,212,.45)" style-hover="background:#5FA9C4">Book a pickup</a>
+        <a href="tel:+916392567352" style="background:#fff;border:1.5px solid #E3E0D8;color:#2E4A5C;padding:16.5px 32px;border-radius:999px;font-family:Quicksand,sans-serif;font-weight:700;font-size:16px" style-hover="border-color:#8FCFE0">Call 6392567352</a>
+      </div>
+    </div>
+  </section>
+
+  <footer style="background:#DCEEF5;border-radius:clamp(28px,4vw,48px) clamp(28px,4vw,48px) 0 0;margin:0 clamp(8px,2vw,20px);padding:clamp(44px,7vw,70px) clamp(18px,4vw,36px) 30px">
+    <div style="max-width:1240px;margin:0 auto">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:clamp(30px,4vw,44px);padding-bottom:44px;border-bottom:1px solid rgba(46,74,92,.12)">
+        <div>
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px">
+            <span style="width:42px;height:42px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center"><svg width="23" height="23" viewBox="0 0 24 24" fill="none"><path d="M12 3.6c1 2.3 3.4 4.5 3.4 6.8a3.4 3.4 0 1 1-6.8 0c0-2.3 2.4-4.5 3.4-6.8Z" fill="#7FBED4"/></svg></span>
+            <span style="display:flex;flex-direction:column;line-height:1"><span style="font-family:Quicksand,sans-serif;font-size:24px;font-weight:700;color:#2E4A5C">Aarika</span><span style="font-size:10px;font-weight:700;letter-spacing:.24em;color:#5A8298;margin-top:5px">FABRIC CARE</span></span>
+          </div>
+          <p style="font-size:15px;line-height:1.8;color:#5A8298;margin:0 0 22px;max-width:290px">Complete laundry and dry-cleaning solutions in Daliganj, Lucknow. Free pickup and delivery on every order.</p>
+          <div style="display:flex;gap:10px">
+            <a href="#top" style="width:38px;height:38px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center" style-hover="background:#7FBED4"><svg width="16" height="16" viewBox="0 0 24 24" fill="#5A8298"><path d="M13.5 9.5V7.8c0-.7.2-1.1 1.2-1.1h1.6V4.1h-2.6c-2.4 0-3.4 1.4-3.4 3.4v2H8.4v2.7h1.9V20h3.2v-7.8h2.2l.4-2.7h-2.6Z"/></svg></a>
+            <a href="#top" style="width:38px;height:38px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center" style-hover="background:#7FBED4"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="16" height="16" rx="5" stroke="#5A8298" stroke-width="1.6"/><circle cx="12" cy="12" r="3.6" stroke="#5A8298" stroke-width="1.6"/><circle cx="16.6" cy="7.4" r="1" fill="#5A8298"/></svg></a>
+            <a href="https://wa.me/918791088936" target="_blank" rel="noopener" style="width:38px;height:38px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center" style-hover="background:#7FBED4"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M4.5 19.5 5.8 16A7.4 7.4 0 1 1 8 18.2l-3.5 1.3Z" stroke="#5A8298" stroke-width="1.5" stroke-linejoin="round"/></svg></a>
+          </div>
+        </div>
+        <div>
+          <div style="font-family:Quicksand,sans-serif;font-size:15px;font-weight:700;color:#2E4A5C;margin-bottom:18px">Pages</div>
+          <div style="display:grid;gap:12px;font-size:15px">
+            <a href="#top" style="color:#5A8298">Home</a>
+            <a href="About.dc.html" style="color:#5A8298">About us</a>
+            <a href="Services.dc.html" style="color:#5A8298">Services</a>
+            <a href="Packages.dc.html" style="color:#5A8298">Packages</a>
+            <a href="Contact.dc.html" style="color:#5A8298">Contact</a>
+          </div>
+        </div>
+        <div>
+          <div style="font-family:Quicksand,sans-serif;font-size:15px;font-weight:700;color:#2E4A5C;margin-bottom:18px">Services</div>
+          <div style="display:grid;gap:12px;font-size:15px;color:#5A8298">
+            <span>Wash &amp; fold</span>
+            <span>Dry cleaning</span>
+            <span>Steam ironing</span>
+            <span>Blankets &amp; quilts</span>
+            <span>Shoes &amp; bags</span>
+          </div>
+        </div>
+        <div>
+          <div style="font-family:Quicksand,sans-serif;font-size:15px;font-weight:700;color:#2E4A5C;margin-bottom:18px">Contact</div>
+          <div style="display:grid;gap:12px;font-size:15px;color:#5A8298;line-height:1.7">
+            <span>498/58 Qureshi Plaza,<br />Near Hari Masjid, Daliganj,<br />Lucknow 226020</span>
+            <a href="tel:+918791088936" style="color:#2E4A5C;font-weight:700">8791088936</a>
+            <a href="tel:+916392567352" style="color:#2E4A5C;font-weight:700">6392567352</a>
+          </div>
+        </div>
+      </div>
+      <div style="padding-top:24px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:13.5px;color:#7A9AAD">
+        <span>&copy; 2026 Aarika Fabric Care. All rights reserved.</span>
+        <span>Where every fabric gets the best care.</span>
+      </div>
+    </div>
+  </footer>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;showAnnouncementBar&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;}}">
+class Component extends DCLogic {
+  state = { name: "", phone: "", date: "", service: "Wash & fold", note: "", submitted: false };
+  set(k) { return (e) => this.setState({ [k]: e.target.value }); }
+  renderVals() {
+    return {
+      showBar: this.props.showAnnouncementBar ?? true,
+      submitted: this.state.submitted,
+      notSubmitted: !this.state.submitted,
+      name: this.state.name, phone: this.state.phone, date: this.state.date,
+      service: this.state.service, note: this.state.note,
+      setName: this.set("name"), setPhone: this.set("phone"), setDate: this.set("date"),
+      setService: this.set("service"), setNote: this.set("note"),
+      submit: (e) => { e.preventDefault(); this.setState({ submitted: true }); },
+      reset: () => this.setState({ submitted: false, name: "", phone: "", date: "", note: "" })
+    };
+  }
+}
+</script>
+</body>
+</html>

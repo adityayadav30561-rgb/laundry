@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&family=Nunito+Sans:opsz,wght@6..12,400;6..12,500;6..12,600;6..12,700&display=swap" rel="stylesheet" />
+<script src="./image-slot.js"></script>
+<style>
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: #FDF8F3; font-family: 'Nunito Sans', system-ui, sans-serif; color: #33566B; -webkit-font-smoothing: antialiased; }
+  a { color: #4E93AE; text-decoration: none; }
+  a:hover { color: #2E4A5C; }
+  @keyframes bubbleUp { 0% { transform: translateY(10px) scale(.96); opacity: .5; } 50% { transform: translateY(-14px) scale(1); opacity: .9; } 100% { transform: translateY(10px) scale(.96); opacity: .5; } }
+</style>
+</helmet>
+
+<div style="width:100%;overflow-x:hidden;background:#FDF8F3">
+  <dc-import name="SiteHeader" hint-size="100%,140px"></dc-import>
+
+  <section style="position:relative;padding:clamp(44px,7vw,80px) clamp(18px,4vw,36px) clamp(40px,6vw,64px);overflow:hidden">
+    <div style="position:absolute;top:60px;right:8%;width:110px;height:110px;border-radius:50%;background:radial-gradient(circle at 32% 30%,#fff 5%,#DCEEF5 44%,#C7E2EE 100%);opacity:.7;animation:bubbleUp 10s ease-in-out infinite"></div>
+    <div style="position:relative;max-width:820px;margin:0 auto;text-align:center">
+      <h1 style="font-family:Quicksand,sans-serif;font-size:clamp(34px,5.2vw,58px);line-height:1.12;font-weight:700;color:#2E4A5C;margin:0 0 20px;letter-spacing:-.015em">The laundry your neighbours already trust</h1>
+      <p style="font-size:clamp(16.5px,1.5vw,18.5px);line-height:1.8;color:#5F7E90;margin:0">Aarika Fabric Care opened in Daliganj to solve one small, daily problem: clothes that come back late, faded or badly pressed. We built the shop around care instead of speed alone.</p>
+    </div>
+  </section>
+
+  <section style="padding:0 clamp(18px,4vw,36px) clamp(52px,8vw,96px)">
+    <div style="max-width:1240px;margin:0 auto;height:clamp(280px,42vw,480px);border-radius:clamp(24px,4vw,40px);overflow:hidden;box-shadow:0 26px 54px rgba(46,74,92,.14)">
+      <image-slot id="about-hero" shape="rect" placeholder="Drop a wide photo — shop front or team at work"></image-slot>
+    </div>
+  </section>
+
+  <section style="background:#EAF5F9;border-radius:clamp(28px,4vw,48px);margin:0 clamp(8px,2vw,20px);padding:clamp(52px,8vw,96px) clamp(18px,4vw,36px)">
+    <div style="max-width:1240px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:clamp(38px,5vw,70px);align-items:center">
+      <div>
+        <h2 style="font-family:Quicksand,sans-serif;font-size:clamp(29px,4.2vw,44px);font-weight:700;color:#2E4A5C;margin:0 0 20px;line-height:1.15;letter-spacing:-.015em">A small shop that runs like a workshop</h2>
+        <p style="font-size:17px;line-height:1.85;color:#5F7E90;margin:0 0 18px">Every order that comes in is tagged with your name and counted in front of you. Garments are then separated by fabric and colour before anything touches water.</p>
+        <p style="font-size:17px;line-height:1.85;color:#5F7E90;margin:0">Stains are treated by hand, delicate pieces are cleaned separately, and everything is steam pressed and packed before it goes back on the delivery bike. If something is not right, we re-do it free.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:16px">
+        <div style="background:#fff;border-radius:24px;padding:28px 24px">
+          <div style="font-family:Quicksand,sans-serif;font-size:34px;font-weight:700;color:#5FA9C4;line-height:1;margin-bottom:8px">24h</div>
+          <div style="font-size:14.5px;line-height:1.6;color:#7A94A5">Standard turnaround</div>
+        </div>
+        <div style="background:#fff;border-radius:24px;padding:28px 24px">
+          <div style="font-family:Quicksand,sans-serif;font-size:34px;font-weight:700;color:#7CBFA3;line-height:1;margin-bottom:8px">8</div>
+          <div style="font-size:14.5px;line-height:1.6;color:#7A94A5">Services under one roof</div>
+        </div>
+        <div style="background:#fff;border-radius:24px;padding:28px 24px">
+          <div style="font-family:Quicksand,sans-serif;font-size:34px;font-weight:700;color:#DB9C80;line-height:1;margin-bottom:8px">₹0</div>
+          <div style="font-size:14.5px;line-height:1.6;color:#7A94A5">Pickup and delivery charge</div>
+        </div>
+        <div style="background:#fff;border-radius:24px;padding:28px 24px">
+          <div style="font-family:Quicksand,sans-serif;font-size:34px;font-weight:700;color:#9A8FC4;line-height:1;margin-bottom:8px">7</div>
+          <div style="font-size:14.5px;line-height:1.6;color:#7A94A5">Days a week, open</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding:clamp(56px,8vw,100px) clamp(18px,4vw,36px)">
+    <div style="max-width:1240px;margin:0 auto">
+      <div style="text-align:center;max-width:620px;margin:0 auto 48px">
+        <h2 style="font-family:Quicksand,sans-serif;font-size:clamp(29px,4.2vw,46px);font-weight:700;color:#2E4A5C;margin:0 0 16px;line-height:1.15;letter-spacing:-.015em">What we promise</h2>
+        <p style="font-size:17px;line-height:1.75;color:#6D8A9B;margin:0">Four things we do not compromise on, order after order.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(228px,1fr));gap:20px">
+        <div style="background:#fff;border-radius:26px;padding:32px 28px">
+          <span style="width:56px;height:56px;border-radius:50%;background:#EAF5F9;display:flex;align-items:center;justify-content:center;margin-bottom:20px"><svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M12 3.8 5 7v4.6c0 4.2 3 7.6 7 8.6 4-1 7-4.4 7-8.6V7l-7-3.2Z" stroke="#5FA9C4" stroke-width="1.5" stroke-linejoin="round"/><path d="m9.4 12 1.9 1.9 3.4-3.8" stroke="#8FCFE0" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+          <div style="font-family:Quicksand,sans-serif;font-size:18px;font-weight:700;color:#2E4A5C;margin-bottom:8px">Fabric first</div>
+          <div style="font-size:14.5px;line-height:1.7;color:#7A94A5">Cottons, woollens, silks and synthetics run on their own cycles.</div>
+        </div>
+        <div style="background:#fff;border-radius:26px;padding:32px 28px">
+          <span style="width:56px;height:56px;border-radius:50%;background:#E9F5EF;display:flex;align-items:center;justify-content:center;margin-bottom:20px"><svg width="28" height="28" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8.4" stroke="#7CBFA3" stroke-width="1.5"/><path d="M12 7.6V12l3 1.9" stroke="#A6D8C2" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+          <div style="font-family:Quicksand,sans-serif;font-size:18px;font-weight:700;color:#2E4A5C;margin-bottom:8px">On time, always</div>
+          <div style="font-size:14.5px;line-height:1.7;color:#7A94A5">24 to 48 hours as standard, same-day express on request.</div>
+        </div>
+        <div style="background:#fff;border-radius:26px;padding:32px 28px">
+          <span style="width:56px;height:56px;border-radius:50%;background:#FBEEE6;display:flex;align-items:center;justify-content:center;margin-bottom:20px"><svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M12 4.4c1.3 2.8 4.2 5.3 4.2 8a4.2 4.2 0 1 1-8.4 0c0-2.7 2.9-5.2 4.2-8Z" stroke="#DB9C80" stroke-width="1.5" stroke-linejoin="round"/></svg></span>
+          <div style="font-family:Quicksand,sans-serif;font-size:18px;font-weight:700;color:#2E4A5C;margin-bottom:8px">Gentle detergents</div>
+          <div style="font-size:14.5px;line-height:1.7;color:#7A94A5">Skin-safe formulas that are kind to babies and sensitive skin.</div>
+        </div>
+        <div style="background:#fff;border-radius:26px;padding:32px 28px">
+          <span style="width:56px;height:56px;border-radius:50%;background:#F1EEF8;display:flex;align-items:center;justify-content:center;margin-bottom:20px"><svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M4 8h16M6.5 8V6.4C6.5 5.6 7.1 5 7.9 5h8.2c.8 0 1.4.6 1.4 1.4V8" stroke="#9A8FC4" stroke-width="1.5" stroke-linecap="round"/><path d="M5.6 8 7 19h10l1.4-11" stroke="#B9AEDD" stroke-width="1.5" stroke-linejoin="round"/></svg></span>
+          <div style="font-family:Quicksand,sans-serif;font-size:18px;font-weight:700;color:#2E4A5C;margin-bottom:8px">Clear rates</div>
+          <div style="font-size:14.5px;line-height:1.7;color:#7A94A5">Per-kilo and per-piece pricing, with nothing added at delivery.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="background:#F3EFE7;border-radius:clamp(28px,4vw,48px);margin:0 clamp(8px,2vw,20px);padding:clamp(52px,8vw,96px) clamp(18px,4vw,36px)">
+    <div style="max-width:1240px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:clamp(38px,5vw,70px);align-items:center">
+      <div style="height:clamp(300px,42vw,470px);border-radius:36px;overflow:hidden;box-shadow:0 26px 54px rgba(46,74,92,.14)">
+        <image-slot id="about-inside" shape="rect" placeholder="Drop a photo — pressing table, packed orders or delivery bag"></image-slot>
+      </div>
+      <div>
+        <h2 style="font-family:Quicksand,sans-serif;font-size:clamp(29px,4.2vw,44px);font-weight:700;color:#2E4A5C;margin:0 0 22px;line-height:1.15;letter-spacing:-.015em">Inside every order</h2>
+        <div style="display:grid;gap:14px">
+          <div style="background:#fff;border-radius:20px;padding:20px 24px;display:flex;gap:16px;align-items:flex-start">
+            <span style="width:38px;height:38px;border-radius:50%;background:#EAF5F9;display:flex;align-items:center;justify-content:center;flex:none;font-family:Quicksand,sans-serif;font-weight:700;color:#5FA9C4">1</span>
+            <div><div style="font-family:Quicksand,sans-serif;font-size:16.5px;font-weight:700;color:#2E4A5C;margin-bottom:4px">Tagged and counted</div><div style="font-size:14.5px;line-height:1.7;color:#7A94A5">Each piece gets a tag with your order number, so nothing is mixed up.</div></div>
+          </div>
+          <div style="background:#fff;border-radius:20px;padding:20px 24px;display:flex;gap:16px;align-items:flex-start">
+            <span style="width:38px;height:38px;border-radius:50%;background:#E9F5EF;display:flex;align-items:center;justify-content:center;flex:none;font-family:Quicksand,sans-serif;font-weight:700;color:#7CBFA3">2</span>
+            <div><div style="font-family:Quicksand,sans-serif;font-size:16.5px;font-weight:700;color:#2E4A5C;margin-bottom:4px">Pre-treated by hand</div><div style="font-size:14.5px;line-height:1.7;color:#7A94A5">Collars, cuffs and visible stains are worked on before the wash.</div></div>
+          </div>
+          <div style="background:#fff;border-radius:20px;padding:20px 24px;display:flex;gap:16px;align-items:flex-start">
+            <span style="width:38px;height:38px;border-radius:50%;background:#FBEEE6;display:flex;align-items:center;justify-content:center;flex:none;font-family:Quicksand,sans-serif;font-weight:700;color:#DB9C80">3</span>
+            <div><div style="font-family:Quicksand,sans-serif;font-size:16.5px;font-weight:700;color:#2E4A5C;margin-bottom:4px">Pressed and packed</div><div style="font-size:14.5px;line-height:1.7;color:#7A94A5">Steam pressed, folded or hung, then covered for the ride home.</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding:clamp(56px,8vw,100px) clamp(18px,4vw,36px)">
+    <div style="max-width:820px;margin:0 auto;text-align:center">
+      <h2 style="font-family:Quicksand,sans-serif;font-size:clamp(30px,4.4vw,48px);font-weight:700;color:#2E4A5C;margin:0 0 18px;line-height:1.15;letter-spacing:-.015em">Try us with 30% off your first order</h2>
+      <p style="font-size:17.5px;line-height:1.75;color:#6D8A9B;margin:0 0 32px">Any service, no minimum. We collect from your door for free.</p>
+      <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
+        <a href="Contact.dc.html" style="background:#7FBED4;color:#fff;padding:18px 38px;border-radius:999px;font-family:Quicksand,sans-serif;font-weight:700;font-size:16px;box-shadow:0 14px 30px rgba(127,190,212,.45)" style-hover="background:#5FA9C4">Book a pickup</a>
+        <a href="Services.dc.html" style="background:#fff;border:1.5px solid #E3E0D8;color:#2E4A5C;padding:16.5px 32px;border-radius:999px;font-family:Quicksand,sans-serif;font-weight:700;font-size:16px" style-hover="border-color:#8FCFE0">See all services</a>
+      </div>
+    </div>
+  </section>
+
+  <dc-import name="SiteFooter" hint-size="100%,460px"></dc-import>
+</div>
+
+</x-dc>
+</body>
+</html>

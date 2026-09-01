@@ -1,0 +1,76 @@
+# Apache settings for shared hosting (Hostinger, cPanel, GoDaddy...).
+# Ignored by hosts that do not run Apache.
+
+DirectoryIndex index.html
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # ---- Force HTTPS and a single hostname -----------------------------------
+  # Comment these out until the SSL certificate is actually issued, or the
+  # site will redirect to a URL that does not answer yet.
+  RewriteCond %{HTTPS} !=on
+  RewriteCond %{HTTP:X-Forwarded-Proto} !https
+  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+
+  # ---- One URL per page ----------------------------------------------------
+  # /about and /about.html would otherwise both answer, which search engines
+  # read as duplicate content. The extensionless form is the one we keep.
+
+  # /index.html -> /
+  RewriteCond %{THE_REQUEST} \s/+index\.html[\s?] [NC]
+  RewriteRule ^ / [R=301,L]
+
+  # /about.html -> /about
+  RewriteCond %{THE_REQUEST} \s/+(.+?)\.html[\s?] [NC]
+  RewriteRule ^ /%1 [R=301,L]
+
+  # Serve /about from about.html on disk
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_FILENAME}.html -f
+  RewriteRule ^(.*)$ $1.html [L]
+</IfModule>
+
+# ---- Keep working files off the web ----------------------------------------
+# Deploying from Git copies the whole repository, notes and all.
+<FilesMatch "\.(md|json|ps1|sh|yml|yaml|log)$">
+  <IfModule mod_authz_core.c>
+    Require all denied
+  </IfModule>
+  <IfModule !mod_authz_core.c>
+    Order allow,deny
+    Deny from all
+  </IfModule>
+</FilesMatch>
+
+RedirectMatch 404 ^/source/
+RedirectMatch 404 ^/\.git
+
+# ---- Compression -----------------------------------------------------------
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css text/javascript application/javascript image/svg+xml application/xml
+</IfModule>
+
+# ---- Caching ---------------------------------------------------------------
+# A week for CSS and JS, not a year: the filenames carry no version hash, so a
+# long cache would leave returning visitors on a stale stylesheet after an
+# update. HTML is never cached, so content changes show immediately.
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/css "access plus 1 week"
+  ExpiresByType text/javascript "access plus 1 week"
+  ExpiresByType application/javascript "access plus 1 week"
+  ExpiresByType image/svg+xml "access plus 1 month"
+  ExpiresByType image/jpeg "access plus 1 month"
+  ExpiresByType image/png "access plus 1 month"
+  ExpiresByType text/html "access plus 0 seconds"
+</IfModule>
+
+# ---- Small hardening -------------------------------------------------------
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+ErrorDocument 404 /404.html

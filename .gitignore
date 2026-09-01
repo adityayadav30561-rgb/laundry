@@ -1,0 +1,13 @@
+# OS and editor noise
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+.DS_Store
+*.swp
+*~
+
+# Local preview only — not part of the deployed site
+.claude/
+
+# Logs
+*.log

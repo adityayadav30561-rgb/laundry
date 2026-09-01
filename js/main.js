@@ -1,0 +1,221 @@
+/* ==========================================================================
+   Aarika Fabric Care — site scripts
+   Plain JavaScript, no libraries. Each block checks for what it needs, so a
+   page without those elements simply skips it.
+
+   1 Header state    2 Mobile menu    3 Scroll reveals
+   4 Pickup form     5 Footer year
+   ========================================================================== */
+
+(function () {
+  "use strict";
+
+  var reduceMotion = window.matchMedia &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* ---------- 1. Header state ----------
+     Only toggles a class, and only when the value actually changes, so a
+     scroll never causes a style recalculation it did not need. */
+  var header = document.querySelector(".site-header");
+
+  if (header) {
+    var stuck = false;
+    var headerTick = false;
+
+    var measureHeader = function () {
+      document.documentElement.style.setProperty("--header-h", header.offsetHeight + "px");
+    };
+
+    var readHeader = function () {
+      var now = (window.scrollY || document.documentElement.scrollTop || 0) > 8;
+      if (now !== stuck) {
+        stuck = now;
+        header.classList.toggle("is-stuck", now);
+      }
+      headerTick = false;
+    };
+
+    window.addEventListener("scroll", function () {
+      if (!headerTick) { headerTick = true; requestAnimationFrame(readHeader); }
+    }, { passive: true });
+
+    window.addEventListener("resize", measureHeader, { passive: true });
+    measureHeader();
+    readHeader();
+  }
+
+  /* ---------- 2. Mobile menu ---------- */
+  var toggle = document.querySelector(".nav-toggle");
+  var links = document.querySelector(".nav-links");
+
+  if (toggle && links) {
+    var setMenu = function (open) {
+      links.classList.toggle("is-open", open);
+      toggle.setAttribute("aria-expanded", open ? "true" : "false");
+      // Stop the page behind the panel scrolling away under a finger
+      document.documentElement.style.overflow = open ? "hidden" : "";
+    };
+
+    var closeMenu = function (refocus) {
+      if (!links.classList.contains("is-open")) { return; }
+      setMenu(false);
+      if (refocus) { toggle.focus(); }
+    };
+
+    toggle.addEventListener("click", function (e) {
+      e.stopPropagation();
+      setMenu(!links.classList.contains("is-open"));
+    });
+
+    links.addEventListener("click", function (e) {
+      if (e.target.closest && e.target.closest("a")) { closeMenu(false); }
+    });
+
+    document.addEventListener("click", function (e) {
+      if (!links.classList.contains("is-open")) { return; }
+      if (!links.contains(e.target) && !toggle.contains(e.target)) { closeMenu(false); }
+    });
+
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" || e.key === "Esc") { closeMenu(true); }
+    });
+
+    window.addEventListener("resize", function () {
+      if (window.innerWidth > 900) { closeMenu(false); }
+    }, { passive: true });
+  }
+
+  /* ---------- 3. Scroll reveals ----------
+     One IntersectionObserver, each element unobserved the moment it lands, and
+     only opacity and transform animate — both composited, so scrolling never
+     touches layout. Nothing here runs on the scroll event itself. */
+  if (!reduceMotion && "IntersectionObserver" in window) {
+    // Tells the failsafe in the page head that the reveals are being handled
+    // here. Set inside this branch on purpose: a browser without
+    // IntersectionObserver must fall through to the failsafe, not silence it.
+    document.documentElement.classList.add("reveal-ready");
+
+    var targets = [].slice.call(document.querySelectorAll("[data-reveal]"));
+
+    var show = function (el, instant) {
+      if (instant) {
+        el.style.transition = "none";
+        el.classList.add("is-in");
+        requestAnimationFrame(function () { el.style.transition = ""; });
+        return;
+      }
+      var delay = parseInt(el.getAttribute("data-delay"), 10);
+      if (delay) { el.style.transitionDelay = delay + "ms"; }
+      el.classList.add("is-in");
+    };
+
+    var observer = new IntersectionObserver(function (entries) {
+      for (var i = 0; i < entries.length; i++) {
+        if (!entries[i].isIntersecting) { continue; }
+        observer.unobserve(entries[i].target);
+        show(entries[i].target, false);
+      }
+    }, { rootMargin: "0px 0px -8% 0px", threshold: 0 });
+
+    // Stagger siblings inside a group so a row arrives as a wave, not at once
+    var groups = document.querySelectorAll("[data-reveal-group]");
+    for (var g = 0; g < groups.length; g++) {
+      var kids = groups[g].children;
+      for (var k = 0; k < kids.length; k++) {
+        if (kids[k].hasAttribute("data-reveal") && !kids[k].hasAttribute("data-delay")) {
+          kids[k].setAttribute("data-delay", String(k * 80));
+        }
+      }
+    }
+
+    for (var t = 0; t < targets.length; t++) { observer.observe(targets[t]); }
+
+    /* An element that goes from below the fold to above it in one jump never
+       intersects, so the observer never fires for it and it would stay
+       invisible for good. That happens on anchor jumps, fast scrolling and
+       when the browser restores a scroll position on reload. This sweep shows
+       anything already scrolled past, with no animation. */
+    var pending = targets.slice();
+    var sweepQueued = false;
+
+    var sweep = function () {
+      sweepQueued = false;
+      var left = [];
+      for (var i = 0; i < pending.length; i++) {
+        var el = pending[i];
+        if (el.classList.contains("is-in")) { continue; }
+        if (el.getBoundingClientRect().bottom < 0) {
+          observer.unobserve(el);
+          show(el, true);
+          continue;
+        }
+        left.push(el);
+      }
+      pending = left;
+    };
+
+    window.addEventListener("scroll", function () {
+      if (!sweepQueued && pending.length) { sweepQueued = true; requestAnimationFrame(sweep); }
+    }, { passive: true });
+
+    window.addEventListener("load", sweep);
+    sweep();
+  }
+
+  /* ---------- 4. Pickup form ---------- */
+  var form = document.querySelector("#pickup-form");
+
+  if (form) {
+    var msg = document.querySelector("#form-msg");
+
+    var say = function (text, isError) {
+      if (!msg) { return; }
+      msg.textContent = text;
+      msg.classList.add("is-shown");
+      msg.classList.toggle("is-error", !!isError);
+      msg.scrollIntoView({ block: "nearest", behavior: reduceMotion ? "auto" : "smooth" });
+    };
+
+    // send.php redirects back with ?sent=1 or ?error=1
+    if (/[?&]sent=1/.test(location.search)) {
+      say("Thank you — your pickup request is in. We will call to confirm your slot shortly.", false);
+      form.reset();
+      history.replaceState(null, "", location.pathname);
+    } else if (/[?&]error=1/.test(location.search)) {
+      say("Sorry, that did not send. Please call 8791088936 and we will book it for you.", true);
+      history.replaceState(null, "", location.pathname);
+    }
+
+    // A pickup cannot be booked for a date already gone
+    var dateField = form.querySelector('input[type="date"]');
+    if (dateField && !dateField.min) {
+      dateField.min = new Date().toISOString().slice(0, 10);
+    }
+
+    form.addEventListener("submit", function (e) {
+      var name = form.elements.name.value.trim();
+      var phone = form.elements.phone.value.replace(/\D/g, "");
+
+      if (!name) {
+        e.preventDefault();
+        say("Please add your name so we know who to ask for.", true);
+        form.elements.name.focus();
+        return;
+      }
+      // Indian mobile numbers are 10 digits and never start below 6
+      if (!/^[6-9]\d{9}$/.test(phone)) {
+        e.preventDefault();
+        say("Please enter a 10-digit mobile number so we can confirm the pickup.", true);
+        form.elements.phone.focus();
+        return;
+      }
+      // Valid — let it post to send.php
+    });
+  }
+
+  /* ---------- 5. Footer year ---------- */
+  var years = document.querySelectorAll(".js-year");
+  for (var y = 0; y < years.length; y++) {
+    years[y].textContent = new Date().getFullYear();
+  }
+})();
