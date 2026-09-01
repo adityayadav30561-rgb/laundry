@@ -443,21 +443,56 @@ h1, h2, h3, h4 {
   align-items: center;
   gap: 12px;
 }
-.hero-badge--offer { left: -14px; bottom: 26px; }
+/* The offer badge hangs off a string like a laundry tag and sways gently,
+   as it did in the original design. The card keeps a punched hole at the top
+   where the string meets it. */
+.hang {
+  position: absolute;
+  z-index: 2;
+  left: -14px;
+  bottom: 26px;
+  transform-origin: top center;
+  animation: swayTag 6s ease-in-out infinite;
+}
+.hang-string { width: 2px; height: 26px; background: #D6CFC4; margin: 0 auto; }
+
+.hero-badge--offer {
+  position: relative;
+  display: block;
+  text-align: center;
+  padding: 22px 26px 18px;
+}
+.hero-badge--offer::before {
+  content: "";
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #E7EFF3;
+}
 .hero-badge--offer .big {
+  display: block;
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: 27px;
+  font-size: 34px;
+  /* The original used a pale blue here, which reads at 2.06:1 on white.
+     The deeper blue keeps the look and clears AA. */
   color: var(--blue-deep);
   line-height: 1;
+  margin-top: 10px;
 }
 .hero-badge--offer .cap {
+  display: block;
   font-size: 10.5px;
   font-weight: 700;
   letter-spacing: .1em;
   text-transform: uppercase;
   color: var(--ink-faint);
   line-height: 1.35;
+  margin-top: 7px;
 }
 .hero-badge--turn {
   top: 20px;
@@ -808,6 +843,57 @@ html.js [data-reveal].is-in.is-in {
   transition: opacity .7s var(--ease), transform .7s var(--ease);
 }
 
+/* ---------- Soap bubbles ----------
+   Decorative bubbles carried over from the original design: a white highlight
+   at 32%/30% of a soft circle, drifting slowly. Purely ornamental, so they are
+   hidden from assistive tech and never take a pointer event. Size, position,
+   tint and duration vary per bubble and are set where each one is placed.
+   The drift animates only transform and opacity, so it stays on the compositor
+   and costs nothing on scroll. */
+@keyframes bubbleUp {
+  0%   { transform: translate3d(0, 10px, 0) scale(.96); opacity: .5; }
+  50%  { transform: translate3d(0, -14px, 0) scale(1);  opacity: .9; }
+  100% { transform: translate3d(0, 10px, 0) scale(.96); opacity: .5; }
+}
+
+.bubble {
+  position: absolute;
+  --bs: var(--bs-base);
+  width: var(--bs);
+  height: var(--bs);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+  will-change: transform;
+  background: radial-gradient(circle at 32% 30%, #fff 6%, #DCEEF5 45%, #C7E2EE 100%);
+  animation: bubbleUp 10s ease-in-out infinite;
+}
+.bubble--mint  { background: radial-gradient(circle at 32% 30%, #fff 6%, #E4F2E9 45%, #D2EADF 100%); }
+.bubble--peach { background: radial-gradient(circle at 32% 30%, #fff 6%, #FBE7DE 45%, #F6D8CA 100%); }
+
+/* A section holding bubbles has to clip them, or they widen the page. */
+.has-bubbles { position: relative; overflow: hidden; }
+/* Keep the real content above the decoration. */
+.has-bubbles > .wrap, .hero > .wrap { position: relative; z-index: 1; }
+
+/* Bubbles are ornament, not content: on a phone they crowd the text and cost
+   paint time on the weakest devices, so the smallest ones step aside. */
+@media (max-width: 700px) {
+  /* Shrink the diameter itself: a transform here would be overwritten by the
+     animation, which sets transform on every frame. */
+  .bubble { --bs: calc(var(--bs-base) * .7); }
+  .bubble--small { display: none; }
+}
+
+/* A swaying tag reads as playful on a marketing page and as a distraction to
+   anyone who asked for less motion — the reduced-motion block below stops
+   both this and the bubbles. */
+@keyframes swayTag {
+  0%, 100% { transform: rotate(-2.5deg); }
+  50%      { transform: rotate(2deg); }
+}
+.sway { transform-origin: top center; animation: swayTag 6s ease-in-out infinite; }
+
 @keyframes floaty {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-9px); }
@@ -868,7 +954,10 @@ html.js [data-reveal].is-in.is-in {
   .promo .wrap { font-size: 12.5px; gap: 6px 10px; }
   .promo .hide-xs { display: none; }
 
-  .hero-badge--offer { left: 10px; bottom: 12px; padding: 10px 14px; }
+  .hang { left: 4px; bottom: 12px; }
+  .hang-string { height: 16px; }
+  .hero-badge--offer { padding: 16px 18px 13px; }
+  .hero-badge--offer .big { font-size: 26px; margin-top: 8px; }
   .hero-badge--turn { right: 10px; top: 12px; font-size: 11.5px; }
 
   .btn { width: 100%; }

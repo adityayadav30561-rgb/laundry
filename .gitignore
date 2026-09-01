@@ -11,3 +11,7 @@ Desktop.ini
 
 # Logs
 *.log
+
+# Design source archives dropped into the folder — the extracted files
+# already live in source/
+*.zip

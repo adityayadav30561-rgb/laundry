@@ -160,6 +160,26 @@
 
     window.addEventListener("load", sweep);
     sweep();
+
+    /* Last line of defence. The observer normally fires for anything already
+       on screen the moment the page settles, but it can be starved — a tab
+       restored from the background, a throttled or hidden renderer, a browser
+       that never runs the callback. If that happens the content stays at
+       opacity 0 with nothing left to trigger it. A few seconds in, anything
+       still hidden at or above the fold is simply shown, with no animation.
+       By then a working observer has already handled all of them, so this
+       costs nothing in the normal case. */
+    var rescue = function () {
+      for (var i = 0; i < pending.length; i++) {
+        var el = pending[i];
+        if (el.classList.contains("is-in")) { continue; }
+        if (el.getBoundingClientRect().top < window.innerHeight) {
+          observer.unobserve(el);
+          show(el, true);
+        }
+      }
+    };
+    setTimeout(rescue, 3000);
   }
 
   /* ---------- 4. Pickup form ---------- */
