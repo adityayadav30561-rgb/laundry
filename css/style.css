@@ -99,7 +99,7 @@ h1, h2, h3, h4 {
 
   --container: 1180px;
   --gutter: clamp(18px, 4.5vw, 40px);
-  --section-y: clamp(56px, 9vw, 110px);
+  --section-y: clamp(56px, 8vw, 100px);
 
   --ease: cubic-bezier(.22, 1, .36, 1);
 }
@@ -121,6 +121,9 @@ h1, h2, h3, h4 {
 .panel {
   border-radius: clamp(28px, 4vw, 48px);
   margin-inline: clamp(8px, 2vw, 20px);
+  /* The reference gives a tinted panel slightly less height than a plain
+     section, so the tint reads as a card rather than a band. */
+  padding-block: clamp(52px, 8vw, 96px);
 }
 .panel--blue { background: var(--mist); }
 .panel--sand { background: var(--sand); }
@@ -421,6 +424,9 @@ h1, h2, h3, h4 {
    the photo supports it, so a section page never competes with the front
    door. The heading also steps down a size — a home page shouts once; five
    more pages shouting is just noise. */
+/* The reference sets the inner-page hero tighter than the home page's,
+   especially underneath, so a section page starts its content sooner. */
+.hero--page { padding-block: clamp(44px, 7vw, 80px) clamp(40px, 6vw, 64px); }
 .hero--page .hero-grid { grid-template-columns: 1.1fr .9fr; }
 .hero--page h1 { font-size: clamp(30px, 4.4vw, 50px); }
 /* The home page leads with its photo on a phone; a section page leads with
@@ -903,10 +909,20 @@ html.js [data-reveal].is-in.is-in {
 
 /* Bubbles are ornament, not content: on a phone they crowd the text and cost
    paint time on the weakest devices, so the smallest ones step aside. */
+/* On a phone the copy runs the full width, so a bubble always ends up behind
+   the heading. It stays, but faint enough to read as a wash rather than a
+   smudge. The opacity has to come from a second set of keyframes: the running
+   animation writes opacity every frame and would overwrite a plain rule. */
+@keyframes bubbleUpSoft {
+  0%   { transform: translate3d(0, 10px, 0) scale(.96); opacity: .3; }
+  50%  { transform: translate3d(0, -14px, 0) scale(1);  opacity: .5; }
+  100% { transform: translate3d(0, 10px, 0) scale(.96); opacity: .3; }
+}
+
 @media (max-width: 700px) {
   /* Shrink the diameter itself: a transform here would be overwritten by the
      animation, which sets transform on every frame. */
-  .bubble { --bs: calc(var(--bs-base) * .7); }
+  .bubble { --bs: calc(var(--bs-base) * .7); animation-name: bubbleUpSoft; }
   .bubble--small { display: none; }
 }
 
@@ -931,6 +947,10 @@ html.js [data-reveal].is-in.is-in {
 
 @media (max-width: 1080px) {
   .hero-grid { grid-template-columns: 1fr; }
+  /* .hero--page .hero-grid sets two columns and carries more weight than the
+     line above, so the page heroes need collapsing by name or they stay in two
+     columns down to the narrowest phone. */
+  .hero--page .hero-grid { grid-template-columns: 1fr; }
   .hero-media { order: -1; }
   .grid--4 { grid-template-columns: repeat(2, 1fr); }
   .footer-grid { grid-template-columns: 1fr 1fr; }
