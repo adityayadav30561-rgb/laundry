@@ -50,55 +50,64 @@ behaviour of both hosts so local and live addresses match. Opening `index.html`
 directly from the file system will not work — the pages use absolute paths
 (`/css/style.css`, `/about`), which need a server.
 
-## Deploying to Vercel
+## Deploying to Hostinger
 
-1. Create an empty repository on GitHub, then:
+This is the intended host. PHP and Apache both work here, so every file in the
+repository is used as-is — nothing to change, nothing to exclude.
 
-   ```bash
-   git remote set-url origin https://github.com/<you>/<repo>.git
-   git push -u origin main
-   ```
+1. **hPanel → Websites → your domain → Advanced → GIT.**
+2. Create a repository:
+   - Repository: `https://github.com/adityayadav30561-rgb/laundry.git`
+   - Branch: `main`
+   - Directory: `public_html`
+3. **Deploy.** Hostinger clones the repo into `public_html`.
+4. Copy the webhook URL it offers and add it in GitHub under
+   **Settings → Webhooks**, so a `git push` redeploys automatically. Without
+   it, press **Deploy** in hPanel after each push.
 
-2. In Vercel, **Add New → Project**, import the repository.
-3. Framework preset **Other**. Leave the build command and output directory
-   empty — there is nothing to build, and the site lives at the repository root.
-4. Deploy.
+### SSL and HTTPS
 
-`vercel.json` is picked up automatically. `404.html` is served for unknown
-paths. No environment variables are needed for the site itself.
+`.htaccess` forces HTTPS. Issue the certificate **before** the first deploy, or
+the site will redirect to an address that does not answer yet:
+**hPanel → Security → SSL → install**, then wait for it to go active. If you
+deploy first and the site becomes unreachable, comment out the three
+`RewriteCond`/`RewriteRule` lines under "Force HTTPS" until the certificate is
+live.
 
-To attach the real domain: **Project → Settings → Domains**, add it, and point
-the registrar at Vercel with the records it shows you.
+### The email the form sends from
 
-## The contact form
+`send.php` needs two values at the top of the file:
 
-**`send.php` does not run on Vercel.** Vercel has no PHP runtime, so the form on
-`/contact` will not send there. `.vercelignore` keeps the file out of the
-deployment, because Vercel would otherwise serve it as plain text and publish
-the recipient address in its source.
+- `$TO` — where enquiries land. Any mailbox, including Gmail.
+- `$FROM` — the address the mail is sent *from*. This must be a real mailbox on
+  the hosting domain, created under **hPanel → Emails**. Shared hosts reject
+  mail claiming to be from a domain they do not host, so a Gmail address here
+  will cause silent failures.
 
-Three ways forward, in order of least work:
+Both are currently placeholders (`aarikafabriccare@gmail.com` and
+`website@aarikafabriccare.com`). The form posts to `/send.php` and comes back to
+`/contact?sent=1` or `/contact?error=1`, which `js/main.js` turns into a message.
 
-1. **Host on Apache instead** (Hostinger, cPanel, most shared hosts). Everything
-   in this repo works as-is, including `send.php` and `.htaccess`. Set `$TO` and
-   `$FROM` at the top of `send.php` first; `$FROM` must be a real mailbox on the
-   hosting domain or the host will refuse to send.
-2. **Keep Vercel and use a form service.** Point the form's `action` at a
-   provider such as Formspree and delete `send.php`. No server code needed.
-3. **Keep Vercel and add a serverless function.** Add `api/contact.js` that
-   posts to an email API, and change the form's `action` to `/api/contact`.
-   This needs an account and an API key stored as a Vercel environment variable.
+## Deploying to Vercel instead
 
-Until one of these is done, the phone numbers and the WhatsApp link on
-`/contact` still work — only the form is inert.
+The repo also carries `vercel.json` (clean URLs, cache and security headers) and
+`.vercelignore`, so it deploys there without edits: import the repository,
+framework preset **Other**, leave the build command and output directory empty.
+
+One catch, and it is the reason Hostinger is the better fit here: **Vercel has
+no PHP runtime**, so `send.php` cannot run. `.vercelignore` excludes it, because
+Vercel would otherwise serve it as plain text and publish the recipient address
+in its source. On Vercel the form would need a form service such as Formspree,
+or a serverless function in `api/` backed by an email provider. The phone
+numbers and the WhatsApp link still work either way.
 
 ## Before this goes live
 
 - **Domain.** `aarikafabriccare.com` is assumed throughout and drives every
-  canonical URL, the Open Graph tags, `sitemap.xml` and `robots.txt`. On a
-  `.vercel.app` URL those canonicals point at a domain that does not resolve,
-  which tells search engines to index an address that does not exist. Either
-  attach the real domain, or replace it everywhere first:
+  canonical URL, the Open Graph tags, `sitemap.xml` and `robots.txt`. If the
+  site goes live on any other address, those canonicals point at a domain that
+  does not resolve, which tells search engines to index somewhere that does not
+  exist. Replace it everywhere before the first deploy:
 
   ```bash
   grep -rl aarikafabriccare.com --include=*.html --include=*.xml --include=*.txt . | xargs sed -i 's|https://aarikafabriccare.com|https://your-real-domain|g'
