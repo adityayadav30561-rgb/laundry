@@ -76,8 +76,8 @@ h1, h2, h3, h4 {
   --cream: #FDF8F3;
   --white: #FFFFFF;
   --mist: #EAF5F9;
+  --sand: #F3EFE7;
   --mist-deep: #DCEEF5;
-  --shell: #FBFDFE;
 
   /* Supporting accents, used sparingly and always semantically */
   --peach: #DB9C80;
@@ -115,8 +115,15 @@ h1, h2, h3, h4 {
 
 .section { padding-block: var(--section-y); position: relative; }
 .section--tight { padding-block: clamp(34px, 5vw, 60px); }
-.section--mist { background: var(--mist); }
-.section--shell { background: var(--shell); }
+
+/* Tinted sections are inset rounded panels sitting on the cream page, not
+   full-width bands — the alternating blue and sand give the page its rhythm. */
+.panel {
+  border-radius: clamp(28px, 4vw, 48px);
+  margin-inline: clamp(8px, 2vw, 20px);
+}
+.panel--blue { background: var(--mist); }
+.panel--sand { background: var(--sand); }
 
 .grid { display: grid; gap: clamp(16px, 2.4vw, 26px); }
 .grid--2 { grid-template-columns: repeat(2, 1fr); }
@@ -175,8 +182,8 @@ h1, h2, h3, h4 {
 
 /* ---------- 5. Header & nav ---------- */
 .promo {
-  background: var(--blue-deep);
-  color: #EAF5F9;
+  background: #D8ECF4;
+  color: var(--blue-deep);
   font-size: 13.5px;
   padding: 9px 0;
 }
@@ -188,9 +195,9 @@ h1, h2, h3, h4 {
   flex-wrap: wrap;
   text-align: center;
 }
-.promo a { color: #fff; font-weight: 700; }
-.promo .dot { color: #7FBED4; }
-.promo b { color: #fff; }
+.promo a { color: var(--ink); font-weight: 700; }
+.promo .dot { color: var(--blue); }
+.promo b { color: var(--ink); }
 
 .site-header {
   position: sticky;
@@ -379,28 +386,6 @@ h1, h2, h3, h4 {
   padding-block: clamp(36px, 6vw, 76px) clamp(48px, 7vw, 90px);
   overflow: hidden;
 }
-.hero::before,
-.hero::after {
-  content: "";
-  position: absolute;
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 0;
-}
-.hero::before {
-  width: clamp(220px, 34vw, 460px);
-  aspect-ratio: 1;
-  top: -14%;
-  left: -12%;
-  background: radial-gradient(circle, rgba(143, 207, 224, .34), rgba(143, 207, 224, 0) 70%);
-}
-.hero::after {
-  width: clamp(180px, 26vw, 360px);
-  aspect-ratio: 1;
-  bottom: -18%;
-  right: -8%;
-  background: radial-gradient(circle, rgba(219, 156, 128, .2), rgba(219, 156, 128, 0) 70%);
-}
 .hero > .wrap { position: relative; z-index: 1; }
 
 .hero-grid {
@@ -431,6 +416,46 @@ h1, h2, h3, h4 {
 .hero-points svg { width: 17px; height: 17px; flex: none; }
 
 .hero-media { position: relative; }
+
+/* Inner-page hero. Same split as the home page, but the copy column leads and
+   the photo supports it, so a section page never competes with the front
+   door. The heading also steps down a size — a home page shouts once; five
+   more pages shouting is just noise. */
+.hero--page .hero-grid { grid-template-columns: 1.1fr .9fr; }
+.hero--page h1 { font-size: clamp(30px, 4.4vw, 50px); }
+/* The home page leads with its photo on a phone; a section page leads with
+   what the page is about. */
+.hero--page .hero-media { order: 0; }
+
+/* A single quiet note pinned to the photo — one fact, never a slogan. */
+.hero-badge--note {
+  left: -14px;
+  bottom: 24px;
+  max-width: 17.5rem;
+  padding: 14px 18px;
+  align-items: flex-start;
+  gap: 11px;
+}
+.hero-badge--note svg { width: 20px; height: 20px; flex: none; margin-top: 1px; }
+.hero-badge--note .k {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 14.5px;
+  line-height: 1.35;
+  color: var(--blue-deep);
+}
+.hero-badge--note .s {
+  display: block;
+  font-size: 12.5px;
+  line-height: 1.45;
+  color: var(--ink-faint);
+  margin-top: 2px;
+}
+
+@media (max-width: 520px) {
+  .hero-badge--note { left: 8px; right: 8px; bottom: 10px; max-width: none; }
+}
 
 .hero-badge {
   position: absolute;
