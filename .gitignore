@@ -1,3 +1,12 @@
+# Design reference — the original .dc.html mockups and poster artwork the site
+# was rebuilt from. Kept on disk for reference, out of the repo: it is 8.7MB
+# that would be cloned and redeployed on every change without ever being served.
+source/
+*.zip
+
+# Local preview config
+.claude/
+
 # OS and editor noise
 Thumbs.db
 ehthumbs.db
@@ -6,12 +15,5 @@ Desktop.ini
 *.swp
 *~
 
-# Local preview only — not part of the deployed site
-.claude/
-
 # Logs
 *.log
-
-# Design source archives dropped into the folder — the extracted files
-# already live in source/
-*.zip

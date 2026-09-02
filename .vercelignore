@@ -1,0 +1,23 @@
+# Files that belong in the repository but not in the deployment.
+
+# Design reference (also gitignored, listed here in case it is present locally)
+source/
+*.zip
+
+# Local preview server — Vercel serves the static files itself
+serve.js
+.claude/
+
+# Apache configuration. Vercel does not read .htaccess; the equivalent rules
+# live in vercel.json. Kept in the repo so the site can still be dropped on
+# any Apache host unchanged.
+.htaccess
+
+# Project notes
+README.md
+
+# The PHP form handler. Vercel has no PHP runtime, so this would not execute —
+# it would be served as plain text, publishing the recipient address in its
+# source. Excluded from the deployment and kept for Apache hosting.
+# See "The contact form" in README.md.
+send.php
