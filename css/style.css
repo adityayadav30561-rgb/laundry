@@ -560,7 +560,30 @@ h1, h2, h3, h4 {
 .trust svg { width: 26px; height: 26px; flex: none; }
 
 /* ---------- 9. Services & steps ---------- */
-.service-card { display: flex; flex-direction: column; height: 100%; }
+.service-card { display: flex; flex-direction: column; height: 100%; position: relative; }
+
+/* The whole card is the target, but only the title carries the link, so the
+   accessible name is the service rather than the paragraph after it, and the
+   card is one stop on the keyboard instead of several. */
+.card-link {
+  color: inherit;
+  text-decoration: none;
+}
+.card-link::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: var(--r-md);
+  /* The link sits inside the heading, so its overlay paints below the
+     paragraph and price that follow. Without this the card looks clickable
+     and only the title actually is. */
+  z-index: 1;
+}
+.card-link:focus-visible { outline: none; }
+.card-link:focus-visible::after {
+  outline: 2px solid var(--blue-deep);
+  outline-offset: 3px;
+}
 .service-card .price {
   margin-top: auto;
   padding-top: 16px;
@@ -1499,6 +1522,8 @@ html.js [data-reveal].is-in.is-in {
 
 @media (hover: hover) {
   .card:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+  .service-card:has(.card-link) { cursor: pointer; }
+  .service-card:has(.card-link):hover .card-link { color: var(--blue-deep); }
   .card { transition: transform .25s var(--ease), box-shadow .25s var(--ease); }
   .nav-links a:hover { color: var(--ink); background: var(--mist); }
   .socials a:hover { transform: translateY(-2px); background: var(--mist-deep); }
