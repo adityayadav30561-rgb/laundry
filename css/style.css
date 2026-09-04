@@ -765,6 +765,20 @@ h1, h2, h3, h4 {
   padding: 16px 0;
   border-bottom: 1px solid var(--line);
 }
+
+/* The icon beside each row already says what it is, so the label is dropped
+   from view. It stays in the markup because the icon is aria-hidden — without
+   it a screen reader would read a bare number and a bare address with nothing
+   saying which is the phone and which is the shop. */
+.contact-line .k {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
 .contact-line:last-child { border-bottom: 0; }
 .contact-line svg { width: 22px; height: 22px; flex: none; margin-top: 3px; }
 .contact-line .k {
