@@ -1308,7 +1308,17 @@ html.js [data-reveal].is-in.is-in {
   .field-row { grid-template-columns: 1fr; }
   .trust { grid-template-columns: 1fr; gap: 4px; }
   .trust li { padding: 6px 0; }
-  .footer-grid { grid-template-columns: 1fr; }
+  /* Two short link lists sit side by side; the brand block and the contact
+     details, which run wider, keep the full width. Four stacked blocks made
+     the footer a seventh of the page. */
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 24px 18px; }
+  .footer-grid > :first-child,
+  .footer-grid > :last-child { grid-column: 1 / -1; }
+  .footer-grid h3 { font-size: 14px; margin-bottom: 10px; }
+  .footer-grid a, .footer-grid li { font-size: 14.5px; }
+  .footer-blurb { font-size: 14px; margin-top: 10px; }
+  .site-footer { padding-block: 34px 0; }
+  .footer-bottom { margin-top: 22px; padding-block: 14px; font-size: 12.5px; }
   .promo .wrap { font-size: 12.5px; gap: 6px 10px; }
   .promo .hide-xs { display: none; }
 
@@ -1341,6 +1351,16 @@ html.js [data-reveal].is-in.is-in {
 
   .section-head { margin-bottom: 18px; }
   .eyebrow { margin-bottom: 10px; font-size: 11.5px; }
+
+  /* A 32px headline runs to three lines on a 375px screen, which reads as
+     shouting rather than as a heading. These are the sizes a phone gets;
+     the fluid scale above still governs everything wider. */
+  .hero h1,
+  .hero--page h1 { font-size: 27px; line-height: 1.14; }
+  .h-xl { font-size: 26px; line-height: 1.16; }
+  .h-lg { font-size: 21px; }
+  .h-md { font-size: 18px; }
+  h3 { font-size: 16px; }
   .lede { font-size: 15.5px; line-height: 1.65; }
   .h-lg { line-height: 1.15; }
 
@@ -1363,7 +1383,7 @@ html.js [data-reveal].is-in.is-in {
     margin: 2px 0 0;
   }
   .service-card .icon-badge svg { width: 21px; height: 21px; }
-  .service-card h3 { grid-area: title; font-size: 16.5px; }
+  .service-card h3 { grid-area: title; font-size: 15.5px; line-height: 1.25; }
   .service-card p { grid-area: body; font-size: 13.8px; line-height: 1.55; margin: 2px 0 0; }
   .service-card .price {
     grid-area: price;
@@ -1415,18 +1435,13 @@ html.js [data-reveal].is-in.is-in {
   .cta-band { padding: 26px 20px; }
   .panel { border-radius: 22px; padding-block: clamp(30px, 7vw, 44px); }
 
-  /* Price sits on the title line, so a service is two lines rather than four. */
-  .service-card {
-    grid-template-columns: auto 1fr auto;
-    grid-template-areas: "icon title price" "icon body body";
-    column-gap: 12px;
-  }
+  /* The price wants about 150px of a 326px card, which left "Blankets and
+     quilts" 80px and wrapped it. It gets its own line instead, so a title is
+     always one line and the card height is predictable. */
   .service-card .price {
     grid-area: price;
-    margin: 0;
+    margin: 7px 0 0;
     padding: 0;
-    align-self: start;
-    text-align: right;
     font-size: 13.5px;
     white-space: nowrap;
   }
@@ -1473,20 +1488,6 @@ html.js [data-reveal].is-in.is-in {
     min-width: 0;
   }
   .rail > .plan { height: auto; }
-}
-
-/* Below this the price no longer fits beside the title, so it goes back under
-   it rather than pushing the card wider than the screen. */
-@media (max-width: 359px) {
-  .service-card {
-    grid-template-columns: auto 1fr;
-    grid-template-areas: "icon title" "icon body" "icon price";
-  }
-  .service-card .price {
-    text-align: left;
-    white-space: normal;
-    margin-top: 7px;
-  }
 }
 
 @media (max-width: 380px) {
