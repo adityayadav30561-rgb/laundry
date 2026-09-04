@@ -1268,6 +1268,50 @@ html.js [data-reveal].is-in.is-in {
   .sheet-scrim, .sheet-panel { animation: none; }
 }
 
+/* ---------- 15d. Floating contact buttons ----------
+   Bottom right, above everything, on every page. On a phone the call bar
+   already carries "Call now", so only WhatsApp floats there, lifted clear of
+   the bar rather than sitting on top of it. */
+.fab {
+  position: fixed;
+  right: max(14px, env(safe-area-inset-right));
+  bottom: max(16px, env(safe-area-inset-bottom));
+  z-index: 75;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.fab-btn {
+  width: 54px;
+  height: 54px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: 0;
+  cursor: pointer;
+  box-shadow: 0 8px 22px rgba(46, 74, 92, .3);
+  transition: transform .2s var(--ease), box-shadow .2s var(--ease);
+}
+.fab-btn svg { width: 27px; height: 27px; }
+.fab-call { background: var(--blue-deep); }
+/* WhatsApp's own green, so the button is recognised at a glance */
+.fab-wa { background: #25D366; }
+.fab-btn:focus-visible { outline: 3px solid var(--blue-deep); outline-offset: 3px; }
+
+@media (hover: hover) {
+  .fab-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 26px rgba(46, 74, 92, .34); }
+}
+
+@media (max-width: 640px) {
+  /* clear of the call bar, which is 74px of fixed furniture */
+  .fab { bottom: calc(74px + max(12px, env(safe-area-inset-bottom))); }
+  .fab-call { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fab-btn { transition: none; }
+}
+
 /* ---------- 16. Responsive ----------
    Sized fluidly above; these breakpoints only change what the layout *is*,
    not what size things are. */

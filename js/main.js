@@ -390,7 +390,46 @@
     }
   }
 
-  /* ---------- 6. Footer year ---------- */
+  /* ---------- 6. WhatsApp button ----------
+     The link already carries the message on its own, so it works with no
+     JavaScript, with geolocation blocked, and if the visitor refuses the
+     prompt. All this adds is the location, when it is offered.
+
+     Navigation stays in the same tab on purpose: a new window opened after an
+     async permission prompt is what popup blockers exist to stop. */
+  var waBtn = document.querySelector(".fab-wa");
+
+  if (waBtn && navigator.geolocation) {
+    waBtn.addEventListener("click", function (e) {
+      var base = waBtn.getAttribute("data-wa");
+      if (!base) { return; }
+      e.preventDefault();
+
+      var sent = false;
+      var send = function (extra) {
+        if (sent) { return; }
+        sent = true;
+        window.location.href = base + (extra ? encodeURIComponent(extra) : "");
+      };
+
+      // If the prompt is ignored, go anyway rather than leaving them waiting
+      var giveUp = setTimeout(function () { send(""); }, 7000);
+
+      navigator.geolocation.getCurrentPosition(
+        function (pos) {
+          clearTimeout(giveUp);
+          var lat = pos.coords.latitude.toFixed(6);
+          var lng = pos.coords.longitude.toFixed(6);
+          var nl = String.fromCharCode(10);
+          send(nl + nl + "My location: https://maps.google.com/?q=" + lat + "," + lng);
+        },
+        function () { clearTimeout(giveUp); send(""); },
+        { enableHighAccuracy: true, timeout: 6500, maximumAge: 60000 }
+      );
+    });
+  }
+
+  /* ---------- 7. Footer year ---------- */
   var years = document.querySelectorAll(".js-year");
   for (var y = 0; y < years.length; y++) {
     years[y].textContent = new Date().getFullYear();
