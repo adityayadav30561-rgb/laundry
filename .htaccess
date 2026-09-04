@@ -53,14 +53,17 @@ RedirectMatch 404 ^/\.git
 </IfModule>
 
 # ---- Caching ---------------------------------------------------------------
-# A week for CSS and JS, not a year: the filenames carry no version hash, so a
-# long cache would leave returning visitors on a stale stylesheet after an
-# update. HTML is never cached, so content changes show immediately.
+# CSS and JS are revalidated every time. The filenames carry no version hash,
+# so any cache window at all leaves returning visitors pairing an old
+# stylesheet with new HTML — which is exactly what happened with a one-week
+# window: the page rendered with markup the cached CSS had no rules for.
+# A revalidation is a 304 and costs almost nothing. Images keep a long cache
+# because their names are stable; give a replacement image a new filename.
 <IfModule mod_expires.c>
   ExpiresActive On
-  ExpiresByType text/css "access plus 1 week"
-  ExpiresByType text/javascript "access plus 1 week"
-  ExpiresByType application/javascript "access plus 1 week"
+  ExpiresByType text/css "access plus 0 seconds"
+  ExpiresByType text/javascript "access plus 0 seconds"
+  ExpiresByType application/javascript "access plus 0 seconds"
   ExpiresByType image/svg+xml "access plus 1 month"
   ExpiresByType image/jpeg "access plus 1 month"
   ExpiresByType image/png "access plus 1 month"
