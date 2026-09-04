@@ -650,6 +650,14 @@ h1, h2, h3, h4 {
 .plan--feature h3, .plan--feature .plan-price { color: #fff; }
 .plan--feature .plan-sub, .plan--feature li { color: rgba(234, 245, 249, .9); }
 .plan .btn { margin-top: auto; }
+.plan-terms {
+  margin: 10px 0 0;
+  font-size: 12px;
+  line-height: 1.5;
+  text-align: center;
+  color: var(--ink-faint);
+}
+.plan--feature .plan-terms { color: rgba(234, 245, 249, .78); }
 
 .addon {
   display: flex;
@@ -941,6 +949,153 @@ html.js [data-reveal].is-in.is-in {
 }
 .floaty { animation: floaty 6s ease-in-out infinite; }
 
+/* ---------- 15b. Rate card ----------
+   218 priced items. The job is to make one line findable, so the search sits
+   beside the tabs, prices align on a tabular figure, and the rows stay dense
+   enough that a column reads as a list rather than a stack of cards. */
+.rates { margin-top: clamp(22px, 3vw, 32px); }
+
+.rates-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px 18px;
+  margin-bottom: clamp(18px, 2.4vw, 26px);
+}
+
+.rate-tabs { display: flex; flex-wrap: wrap; gap: 8px; }
+.rate-tab {
+  appearance: none;
+  border: 1px solid var(--line);
+  background: var(--white);
+  color: var(--ink-soft);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 14.5px;
+  padding: 10px 16px;
+  border-radius: var(--r-pill);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: background .2s var(--ease), color .2s var(--ease), border-color .2s var(--ease);
+}
+.rate-tab .n {
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink-faint);
+  background: var(--mist);
+  border-radius: var(--r-pill);
+  padding: 2px 7px;
+}
+.rate-tab.is-on {
+  background: var(--blue-deep);
+  border-color: var(--blue-deep);
+  color: #fff;
+}
+.rate-tab.is-on .n { background: rgba(255, 255, 255, .18); color: #fff; }
+.rate-tab:focus-visible { outline: 2px solid var(--blue-deep); outline-offset: 2px; }
+
+.rates-search {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--r-pill);
+  padding: 0 16px;
+  flex: 1 1 210px;
+  max-width: 320px;
+}
+.rates-search svg { width: 18px; height: 18px; flex: none; }
+.rates-search input {
+  border: 0;
+  background: none;
+  padding: 12px 0;
+  width: 100%;
+  font-family: var(--font-body);
+  font-size: 16px;
+  color: var(--ink);
+}
+.rates-search input:focus { outline: none; }
+.rates-search:focus-within { border-color: var(--blue-pale); box-shadow: 0 0 0 3px rgba(127, 190, 212, .18); }
+.rates-search input::-webkit-search-cancel-button { cursor: pointer; }
+
+/* The category heading only earns its place once results span categories. */
+.rate-cat {
+  font-size: 15px;
+  margin: 0 0 10px;
+  color: var(--ink-soft);
+  display: none;
+}
+.rates.is-searching .rate-cat { display: block; }
+.rates.is-searching .rate-panel + .rate-panel { margin-top: 26px; }
+
+.rate-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 290px), 1fr));
+  gap: 0 clamp(22px, 3.4vw, 52px);
+}
+.rate-list li {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  padding: 10px 2px;
+  border-bottom: 1px dashed var(--line);
+  font-size: 15px;
+}
+.rate-name { flex: 1 1 auto; color: var(--ink-soft); }
+.rate-price {
+  flex: none;
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Laundry is a two-rate table rather than a single price. */
+.rate-weight { max-width: 640px; }
+.rate-weight-head,
+.rate-list--weight li {
+  display: grid;
+  grid-template-columns: 1fr 8.5rem 8.5rem;
+  gap: 10px;
+  align-items: baseline;
+}
+.rate-weight-head {
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  padding: 0 2px 8px;
+}
+.rate-list--weight { grid-template-columns: 1fr; }
+.rate-foot,
+.rate-note {
+  margin: 16px 0 0;
+  font-size: 13.5px;
+  line-height: 1.7;
+  color: var(--ink-soft);
+}
+.rate-note { margin-top: 22px; }
+.rates-empty {
+  margin: 22px 0 0;
+  font-size: 15px;
+  color: var(--ink-soft);
+}
+.rates-empty a { font-weight: 700; }
+
+@media (max-width: 560px) {
+  .rate-weight-head, .rate-list--weight li { grid-template-columns: 1fr 5.6rem 5.6rem; }
+  .rate-weight-head { font-size: 11px; }
+  .rate-list--weight li { font-size: 14px; }
+}
+
 /* ---------- 16. Responsive ----------
    Sized fluidly above; these breakpoints only change what the layout *is*,
    not what size things are. */
@@ -1028,6 +1183,7 @@ html.js [data-reveal].is-in.is-in {
   /* The brand lockup sits a few pixels under the minimum on its own */
   .brand { min-height: 44px; align-items: center; }
   .link-arrow { min-height: 44px; align-items: center; }
+  .rate-tab { min-height: 44px; }
 
   /* Footer link lists run at a 37px pitch, which is comfortable with a mouse
      and cramped with a thumb. Trading the row gap for padding inside each

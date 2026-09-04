@@ -233,7 +233,85 @@
     });
   }
 
-  /* ---------- 5. Footer year ---------- */
+  /* ---------- 5. Rate card ----------
+     Tabs while browsing; a single filtered list while searching. Searching
+     across every category is the point — someone looking up "saree" should not
+     have to guess which tab it lives under first. */
+  var rates = document.querySelector(".rates");
+
+  if (rates) {
+    var rTabs   = [].slice.call(rates.querySelectorAll('[role="tab"]'));
+    var rPanels = rTabs.map(function (t) { return document.getElementById(t.getAttribute("aria-controls")); });
+    var rSearch = rates.querySelector("#rate-search");
+    var rEmpty  = rates.querySelector(".rates-empty");
+    var rItems  = [].slice.call(rates.querySelectorAll(".rate-list li")).map(function (li) {
+      var name = li.querySelector(".rate-name");
+      return { li: li, text: (name ? name.textContent : "").toLowerCase() };
+    });
+
+    var showTab = function (index, focus) {
+      rTabs.forEach(function (tab, i) {
+        var on = i === index;
+        tab.classList.toggle("is-on", on);
+        tab.setAttribute("aria-selected", on ? "true" : "false");
+        tab.tabIndex = on ? 0 : -1;
+        if (rPanels[i]) { rPanels[i].hidden = !on; }
+      });
+      if (focus) { rTabs[index].focus(); }
+    };
+
+    rTabs.forEach(function (tab, i) {
+      tab.addEventListener("click", function () {
+        if (rSearch && rSearch.value) { rSearch.value = ""; filter(); }
+        showTab(i, false);
+      });
+      tab.addEventListener("keydown", function (e) {
+        var to = e.key === "ArrowRight" ? i + 1
+               : e.key === "ArrowLeft"  ? i - 1
+               : e.key === "Home"       ? 0
+               : e.key === "End"        ? rTabs.length - 1 : -1;
+        if (to === -1) { return; }
+        e.preventDefault();
+        showTab((to + rTabs.length) % rTabs.length, true);
+      });
+    });
+
+    var filter = function () {
+      var q = rSearch.value.trim().toLowerCase();
+      rates.classList.toggle("is-searching", q !== "");
+
+      if (!q) {
+        // back to browsing: whichever tab is selected wins
+        var active = rTabs.findIndex ? rTabs.findIndex(function (t) { return t.classList.contains("is-on"); }) : 0;
+        showTab(active < 0 ? 0 : active, false);
+        rItems.forEach(function (it) { it.li.hidden = false; });
+        if (rEmpty) { rEmpty.hidden = true; }
+        return;
+      }
+
+      var found = 0;
+      rItems.forEach(function (it) {
+        var hit = it.text.indexOf(q) !== -1;
+        it.li.hidden = !hit;
+        if (hit) { found++; }
+      });
+      // every category is visible while searching, minus the empty ones
+      rPanels.forEach(function (p) {
+        if (!p) { return; }
+        p.hidden = !p.querySelector(".rate-list li:not([hidden])");
+      });
+      if (rEmpty) { rEmpty.hidden = found !== 0; }
+    };
+
+    if (rSearch) {
+      rSearch.addEventListener("input", filter);
+      rSearch.addEventListener("keydown", function (e) {
+        if (e.key === "Escape" && rSearch.value) { e.stopPropagation(); rSearch.value = ""; filter(); }
+      });
+    }
+  }
+
+  /* ---------- 6. Footer year ---------- */
   var years = document.querySelectorAll(".js-year");
   for (var y = 0; y < years.length; y++) {
     years[y].textContent = new Date().getFullYear();
