@@ -303,6 +303,85 @@
       if (rEmpty) { rEmpty.hidden = found !== 0; }
     };
 
+    /* --- Filter sheet, for phones ---
+       The category pills do not fit beside a search box on a narrow screen, so
+       below that width they are replaced by one button that opens a sheet from
+       the bottom. Built from the tabs rather than written out again, so the two
+       can never disagree. */
+    var fBtn = rates.querySelector(".rates-filter");
+
+    if (fBtn) {
+      var fVal   = fBtn.querySelector(".val");
+      var sheet  = document.createElement("div");
+      sheet.className = "sheet";
+      sheet.hidden = true;
+      sheet.innerHTML =
+        '<div class="sheet-scrim" data-close></div>' +
+        '<div class="sheet-panel" role="dialog" aria-modal="true" aria-label="Choose a category">' +
+          '<div class="sheet-grip"></div>' +
+          '<div class="sheet-head"><h3>Category</h3>' +
+            '<button type="button" class="sheet-close" data-close>Done</button></div>' +
+          '<ul class="sheet-list">' +
+            rTabs.map(function (t, i) {
+              var count = t.querySelector(".n");
+              return '<li><button type="button" class="sheet-opt" data-i="' + i + '">' +
+                '<span>' + t.childNodes[0].textContent.trim() + '</span>' +
+                '<span class="count">' + (count ? count.textContent : "") + '</span>' +
+                '<svg class="tick" viewBox="0 0 24 24" fill="none" aria-hidden="true">' +
+                '<path d="m5.5 12.5 4 4 9-9.5" stroke="#3A6076" stroke-width="2.6" ' +
+                'stroke-linecap="round" stroke-linejoin="round"/></svg></button></li>';
+            }).join("") +
+          '</ul>' +
+        '</div>';
+      document.body.appendChild(sheet);
+
+      var opts = [].slice.call(sheet.querySelectorAll(".sheet-opt"));
+      var lastFocus = null;
+
+      var paint = function (index) {
+        opts.forEach(function (o, i) { o.classList.toggle("is-on", i === index); });
+        if (fVal) { fVal.textContent = rTabs[index].childNodes[0].textContent.trim(); }
+      };
+
+      var closeSheet = function () {
+        if (sheet.hidden) { return; }
+        sheet.hidden = true;
+        document.documentElement.style.overflow = "";
+        fBtn.setAttribute("aria-expanded", "false");
+        if (lastFocus) { lastFocus.focus(); }
+      };
+
+      var openSheet = function () {
+        lastFocus = document.activeElement;
+        var active = 0;
+        rTabs.forEach(function (t, i) { if (t.classList.contains("is-on")) { active = i; } });
+        paint(active);
+        sheet.hidden = false;
+        document.documentElement.style.overflow = "hidden";
+        fBtn.setAttribute("aria-expanded", "true");
+        (opts[active] || opts[0]).focus();
+      };
+
+      fBtn.addEventListener("click", openSheet);
+
+      sheet.addEventListener("click", function (e) {
+        if (e.target.closest("[data-close]")) { closeSheet(); return; }
+        var opt = e.target.closest(".sheet-opt");
+        if (!opt) { return; }
+        var i = +opt.getAttribute("data-i");
+        if (rSearch && rSearch.value) { rSearch.value = ""; filter(); }
+        showTab(i, false);
+        paint(i);
+        closeSheet();
+      });
+
+      document.addEventListener("keydown", function (e) {
+        if (!sheet.hidden && (e.key === "Escape" || e.key === "Esc")) { closeSheet(); }
+      });
+
+      paint(0);
+    }
+
     if (rSearch) {
       rSearch.addEventListener("input", filter);
       rSearch.addEventListener("keydown", function (e) {
