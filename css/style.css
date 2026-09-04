@@ -1311,6 +1311,11 @@ html.js [data-reveal].is-in.is-in {
   /* Two short link lists sit side by side; the brand block and the contact
      details, which run wider, keep the full width. Four stacked blocks made
      the footer a seventh of the page. */
+  /* An inner page opens with a photograph in its hero. A second one directly
+     beneath it is a banner on a desktop and a wall of picture on a phone, so
+     it steps aside. It is lazy-loaded, so hidden here it is never fetched. */
+  .hide-phone { display: none; }
+
   .footer-grid { grid-template-columns: 1fr 1fr; gap: 24px 18px; }
   .footer-grid > :first-child,
   .footer-grid > :last-child { grid-column: 1 / -1; }
