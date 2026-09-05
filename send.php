@@ -13,8 +13,8 @@ $TO = 'info@aarikafabriccare.com';
 //
 // No password goes in this file. mail() hands the message to the server's own
 // mail transport, which is already authenticated as the hosting account —
-// there is no SMTP login to make. Anything written here would be public: this
-// file lives in a public repository.
+// there is no SMTP login to make. Nothing secret belongs in a file that is
+// committed, whoever can read the repository today.
 $FROM = 'support@aarikafabriccare.com';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
