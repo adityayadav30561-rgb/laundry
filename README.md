@@ -12,8 +12,8 @@ the files in this repository are the files that get served.
 |-------------|-----------------|
 | `/`         | `index.html`    |
 | `/about`    | `about.html`    |
-| `/services` | `services.html` |
-| `/packages` | `packages.html` |
+| `/services` | `services.html` — what we clean |
+| `/packages` | `packages.html` — the full rate card and the offers |
 | `/contact`  | `contact.html`  |
 | 404         | `404.html`      |
 
@@ -47,8 +47,8 @@ node serve.js
 
 Then open <http://localhost:5174>. `serve.js` mirrors the clean-URL and 404
 behaviour of both hosts so local and live addresses match. Opening `index.html`
-directly from the file system will not work — the pages use absolute paths
-(`/css/style.css`, `/about`), which need a server.
+straight from the file system shows the design — asset paths are relative — but
+the page links are absolute (`/about`), so navigation needs the server.
 
 ## Deploying to Hostinger
 
@@ -84,9 +84,16 @@ live.
   mail claiming to be from a domain they do not host, so a Gmail address here
   will cause silent failures.
 
-Both are currently placeholders (`aarikafabriccare@gmail.com` and
-`website@aarikafabriccare.com`). The form posts to `/send.php` and comes back to
-`/contact?sent=1` or `/contact?error=1`, which `js/main.js` turns into a message.
+Both are set: enquiries go to `info@aarikafabriccare.com`, sent from
+`support@aarikafabriccare.com`. Create that second mailbox under
+**hPanel → Emails** before the first deploy, or the host will refuse the
+message. The form posts to `/send.php` and comes back to `/contact?sent=1` or
+`/contact?error=1`, which `js/main.js` turns into a message.
+
+**No password belongs in this repository.** `mail()` hands the message to the
+server's own mail transport, already authenticated as the hosting account, so
+there is no SMTP login to store. The mailbox password is only ever typed into
+hPanel or a mail client.
 
 ## Deploying to Vercel instead
 
@@ -113,11 +120,12 @@ numbers and the WhatsApp link still work either way.
   grep -rl aarikafabriccare.com --include=*.html --include=*.xml --include=*.txt . | xargs sed -i 's|https://aarikafabriccare.com|https://your-real-domain|g'
   ```
 
-- **`send.php`** — `$TO` and `$FROM` are placeholders. See above.
-- **Social links** — the Facebook and Instagram links in the footer are `#`.
-- **Street number** — the source posters disagree between 498/58 and 598/58.
-  The site says **498/58**, in the footer, the contact page, the structured data
-  and the map links.
+- **The `support@` mailbox** must exist on the hosting domain before the form
+  can send. See above.
+- **Social links** were removed and are to be added back with real profile URLs.
+- **Blankets and quilts** read "starts from ₹69" on the service card, while the
+  rate card lists Blanket Single at ₹249 and nothing blanket-related under
+  ₹119. One of the two is wrong.
 - **Home page reviews** — these came with the original design and are not real
   customer quotes. Replace them with genuine ones, or remove the section.
 

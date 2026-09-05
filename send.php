@@ -6,11 +6,16 @@
    ========================================================================== */
 
 // Where pickup requests are delivered. CHANGE THIS to the shop's real inbox.
-$TO = 'aarikafabriccare@gmail.com';
+$TO = 'info@aarikafabriccare.com';
 
-// The address the mail is sent FROM. It must be a real mailbox on your own
-// domain, or the host refuses it and spam filters bin it.
-$FROM = 'website@aarikafabriccare.com';
+// The address the mail is sent FROM. It must be a real mailbox on this domain,
+// or the host refuses the message and spam filters bin it.
+//
+// No password goes in this file. mail() hands the message to the server's own
+// mail transport, which is already authenticated as the hosting account —
+// there is no SMTP login to make. Anything written here would be public: this
+// file lives in a public repository.
+$FROM = 'support@aarikafabriccare.com';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     header('Location: /contact');
