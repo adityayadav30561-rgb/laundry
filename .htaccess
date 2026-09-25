@@ -61,13 +61,25 @@ RedirectMatch 404 ^/\.git
 # because their names are stable; give a replacement image a new filename.
 <IfModule mod_expires.c>
   ExpiresActive On
-  ExpiresByType text/css "access plus 0 seconds"
-  ExpiresByType text/javascript "access plus 0 seconds"
-  ExpiresByType application/javascript "access plus 0 seconds"
-  ExpiresByType image/svg+xml "access plus 1 month"
-  ExpiresByType image/jpeg "access plus 1 month"
-  ExpiresByType image/png "access plus 1 month"
   ExpiresByType text/html "access plus 0 seconds"
+</IfModule>
+
+# Matching a cache rule to a MIME type turned out to be fragile: this host
+# serves .js as application/x-javascript, so neither the text/javascript nor
+# the application/javascript line ever matched it. The stylesheet revalidated
+# correctly while the script sat in browsers for a week — long enough to pair
+# last week's JavaScript with today's markup, which is how a working search
+# box stopped filtering.
+#
+# Matching the extension instead, with Header set rather than append, so it
+# also overrides whatever the host or its CDN decided on its own.
+<IfModule mod_headers.c>
+  <FilesMatch "\.(css|js)$">
+    Header set Cache-Control "no-cache, must-revalidate"
+  </FilesMatch>
+  <FilesMatch "\.(jpg|jpeg|png|gif|svg|webp|ico|woff2?)$">
+    Header set Cache-Control "public, max-age=2592000"
+  </FilesMatch>
 </IfModule>
 
 # ---- Small hardening -------------------------------------------------------
