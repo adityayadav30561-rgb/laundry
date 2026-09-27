@@ -31,6 +31,13 @@ body {
   overflow-x: clip;
 }
 
+/* The browser hides [hidden] with display:none, but that is a single attribute
+   selector and loses to any class rule that sets display — ".rate-list li"
+   setting flex, for one. The result is JavaScript that reports an element as
+   hidden while it is still on screen, which is exactly how the rate card kept
+   showing all 220 rows while filtering "worked". Make it win outright. */
+[hidden] { display: none !important; }
+
 img, svg, video { display: block; max-width: 100%; }
 img { height: auto; }
 a { color: var(--blue-deep); text-decoration: none; }
